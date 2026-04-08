@@ -69,6 +69,10 @@ tbody tr:last-child{border-bottom:none;}
 td{padding:9px 10px;font-size:11.5px;color:var(--text);text-align:center;vertical-align:middle;}
 td:first-child{text-align:left;padding-left:16px;}
 .tdm{color:var(--text-muted);}
+.wb{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:9.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;}
+.wvvb{background:#e8eeff;color:#1D4ED8;}
+.wverra{background:#fff3e8;color:#B45309;}
+.wcbx{background:#e8f4ff;color:#1a5eb8;}
 .pname{font-family:'Manrope',sans-serif;font-size:12.5px;font-weight:800;color:var(--forest);}
 .pstage{font-size:9.5px;color:var(--text-muted);margin-top:1px;}
 .db{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:21px;border-radius:5px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:800;padding:0 5px;}
@@ -199,7 +203,7 @@ table.vt tfoot td.tq4{color:#888;}
     </div>
     <div class="kpis">
       <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">Em Certificação</div></div>
-      <div class="kpi"><div class="kv" style="color:var(--mint)">1.455K</div><div class="kl">VCUs Projetados</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--mint)">1.387K</div><div class="kl">VCUs Projetados</div></div>
       <div class="kpi"><div class="kv" style="color:#ff8a80">2</div><div class="kl">Acima do SLA</div></div>
       <div class="kpi"><div class="kv" style="color:rgba(255,255,255,.45)">5</div><div class="kl">On Hold</div></div>
     </div>
@@ -225,6 +229,7 @@ table.vt tfoot td.tq4{color:#888;}
       <thead>
         <tr>
           <th onclick="srt('cert-tbl',0)">Projeto ↕</th>
+          <th>Com quem</th>
           <th>Status</th>
           <th onclick="srt('cert-tbl',2)">Dias ↕</th>
           <th>Prazo</th>
@@ -290,14 +295,14 @@ table.vt tfoot td.tq4{color:#888;}
           <tr>
             <td>Total</td>
             <td class="tq1">0</td>
-            <td class="tq2">973.475</td>
+            <td class="tq2">905.475</td>
             <td class="tq3">481.799</td>
             <td class="tq4">0</td>
           </tr>
         </tfoot>
       </table>
       <div class="grand">
-        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.455.277 VCUs</div></div>
+        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.387.277 VCUs</div></div>
         <div style="text-align:right"><div class="grand-lbl">Projetos</div><div class="grand-val" style="color:var(--mint)">8</div></div>
       </div>
     </div>
@@ -324,7 +329,7 @@ var certRows=[
   {proj:'Awa',     est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:82, prazo:'30/04/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'336K',vcbx:'84K', cur:6},
   {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:29, prazo:'30/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6},
   {proj:'Hiwi',    est:'MR2',   status:'Esperando 3R Verra',      who:'verra',dias:12, prazo:'10/04/26',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:6},
-  {proj:'Ybyrá',   est:'PD',    status:'Respondendo 2R Verra',    who:'verra',dias:1,  prazo:'14/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5},
+  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:1,  prazo:'14/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5},
   {proj:'Oga',     est:'PD+MR1',status:'Respondendo 2R Verra',    who:'verra',dias:49, prazo:'28/04/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'209K',vcbx:'63K', cur:5},
   {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:33, prazo:'30/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5},
   {proj:'Ahu',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:1,  prazo:'08/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5},
@@ -342,8 +347,6 @@ var volRows=[
   {proj:'Tatuy',    meto:'VM0015',    q:1, vcu:89 },
   {proj:'Angelim',  meto:'VM0015',    q:1, vcu:117},
   {proj:'Ahu',      meto:'VM0015',    q:1, vcu:109},
-  {proj:'Ipoá PD',  meto:'VM0007',    q:0, vcu:0  },
-  {proj:'Ipoá MR1', meto:'VM0015',    q:1, vcu:68 },
 ];
 
 var QC=['q1','q2','q3','q4'];
@@ -373,7 +376,10 @@ function renderCert(){
     }
     h+='<tr data-who="'+r.who+'" data-sla="'+(sla?'1':'0')+'" data-proj="'+r.proj.toLowerCase()+'" onclick="tx('+i+')">';
     h+='<td><div class="pname">'+r.proj+'</div><div class="pstage">'+r.est+'</div></td>';
-    h+='<td><span style="font-size:11px;font-weight:500;color:'+sc+'">'+r.status+'</span></td>';
+    var wl=r.who==='vvb'?'VVB':(r.who==='cbx'?'CBX':'Verra');
+    var wc=r.who==='vvb'?'wvvb':(r.who==='cbx'?'wcbx':'wverra');
+    h+='<td><span class="wb '+wc+'">'+wl+'</span></td>';
+    h+='<td><span style="font-size:11px;font-weight:500;color:#3d5a48">'+r.status+'</span></td>';
     h+='<td><span class="db '+dc+'">'+r.dias+'</span></td>';
     h+='<td '+ps+' style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
     h+='<td class="tdm">'+r.iniMR+'</td>';
@@ -382,7 +388,7 @@ function renderCert(){
     h+='<td><div class="gantt"><div class="gbar"><div class="gfill" style="width:'+pct+'%"></div><div class="gmark" style="left:'+pct+'%"></div></div><span class="gstage">'+STAGES[r.cur]+'</span></div></td>';
     h+='</tr>';
     h+='<tr class="xrow" id="xr-'+i+'">';
-    h+='<td colspan="8"><div class="xinner">';
+    h+='<td colspan="9"><div class="xinner">';
     h+='<div><div class="xlbl">VCUs</div><div class="xval">'+r.vcu+'</div><div class="xsub">VCBx: '+r.vcbx+'</div></div>';
     h+='<div><div class="xlbl">Início MR</div><div class="xval" style="font-size:12px">'+r.iniMR+'</div></div>';
     h+='<div><div class="xlbl">Fim MR</div><div class="xval" style="font-size:12px">'+r.fimMR+'</div></div>';
@@ -481,7 +487,7 @@ function initChart(){
       labels:['Q1\njan–mar','Q2\nabr–jun','Q3\njul–set','Q4\nout–dez'],
       datasets:[{
         label:'VCUs (K)',
-        data:[0,973,482,0],
+        data:[0,905,482,0],
         backgroundColor:['rgba(0,92,53,.85)','rgba(43,168,74,.85)','rgba(123,45,139,.85)','rgba(150,150,150,.55)'],
         borderRadius:6,borderSkipped:false
       }]
