@@ -203,8 +203,8 @@ table.vt tfoot td.tq4{color:#888;}
     </div>
     <div class="kpis">
       <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">Em Certificação</div></div>
-      <div class="kpi"><div class="kv" style="color:var(--mint)">1.333K</div><div class="kl">VCUs Projetados</div></div>
-      <div class="kpi"><div class="kv" style="color:#ff8a80">2</div><div class="kl">Acima do SLA</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--mint)">1.402K</div><div class="kl">VCUs Projetados</div></div>
+      <div class="kpi"><div class="kv" style="color:#ff8a80">3</div><div class="kl">Acima do SLA</div></div>
       <div class="kpi"><div class="kv" style="color:rgba(255,255,255,.45)">5</div><div class="kl">On Hold</div></div>
     </div>
   </div>
@@ -297,12 +297,12 @@ table.vt tfoot td.tq4{color:#888;}
             <td class="tq1">0</td>
             <td class="tq2">743.125</td>
             <td class="tq3">590.442</td>
-            <td class="tq4">0</td>
+            <td class="tq4">68.778</td>
           </tr>
         </tfoot>
       </table>
       <div class="grand">
-        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.333.570 VCUs</div></div>
+        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.402.345 VCUs</div></div>
         <div style="text-align:right"><div class="grand-lbl">Projetos</div><div class="grand-val" style="color:var(--mint)">8</div></div>
       </div>
     </div>
@@ -347,6 +347,7 @@ var volRows=[
   {proj:'Tatuy',    meto:'VM0015',    q:1, vcu:89 },
   {proj:'Angelim',  meto:'VM0015',    q:1, vcu:117},
   {proj:'Ahu',      meto:'VM0015',    q:2, vcu:109},
+  {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:69 },
 ];
 
 var QC=['q1','q2','q3','q4'];
@@ -463,9 +464,9 @@ function renderVol(){
   for(var i=0;i<volRows.length;i++){
     var r=volRows[i];
     var cells=['<td class="vdash">—</td>','<td class="vdash">—</td>','<td class="vdash">—</td>','<td class="vdash">—</td>'];
-    if(r.vcu>0){
+    if(r.q>=0 && r.vcu>0){
       cells[r.q]='<td><span class="vpill '+QC[r.q]+'">'+r.vcu+'K</span></td>';
-    } else {
+    } else if(r.q>=0) {
       cells[r.q]='<td><span class="vzero"></span></td>';
     }
     h+='<tr>';
@@ -487,7 +488,7 @@ function initChart(){
       labels:['Q1\njan–mar','Q2\nabr–jun','Q3\njul–set','Q4\nout–dez'],
       datasets:[{
         label:'VCUs (K)',
-        data:[0,743,590,0],
+        data:[0,743,590,69],
         backgroundColor:['rgba(0,92,53,.85)','rgba(43,168,74,.85)','rgba(123,45,139,.85)','rgba(150,150,150,.55)'],
         borderRadius:6,borderSkipped:false
       }]
