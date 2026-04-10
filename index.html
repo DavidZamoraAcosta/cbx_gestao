@@ -203,7 +203,7 @@ table.vt tfoot td.tq4{color:#888;}
     </div>
     <div class="kpis">
       <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">Em Certificação</div></div>
-      <div class="kpi"><div class="kv" style="color:var(--mint)">1.387K</div><div class="kl">VCUs Projetados</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--mint)">1.333K</div><div class="kl">VCUs Projetados</div></div>
       <div class="kpi"><div class="kv" style="color:#ff8a80">2</div><div class="kl">Acima do SLA</div></div>
       <div class="kpi"><div class="kv" style="color:rgba(255,255,255,.45)">5</div><div class="kl">On Hold</div></div>
     </div>
@@ -295,14 +295,14 @@ table.vt tfoot td.tq4{color:#888;}
           <tr>
             <td>Total</td>
             <td class="tq1">0</td>
-            <td class="tq2">905.475</td>
-            <td class="tq3">481.799</td>
+            <td class="tq2">743.125</td>
+            <td class="tq3">590.442</td>
             <td class="tq4">0</td>
           </tr>
         </tfoot>
       </table>
       <div class="grand">
-        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.387.277 VCUs</div></div>
+        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.333.570 VCUs</div></div>
         <div style="text-align:right"><div class="grand-lbl">Projetos</div><div class="grand-val" style="color:var(--mint)">8</div></div>
       </div>
     </div>
@@ -326,27 +326,27 @@ var STAGES=['Ativ','Escrita','PCP','VVB','1R','2R','3R','Emissão'];
 
 /* ── CERT DATA (dados atualizados imagens) ── */
 var certRows=[
-  {proj:'Hiwi',    est:'MR2',   status:'Esperando 3R Verra',      who:'verra',dias:13, prazo:'10/04/26',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:6},
-  {proj:'Awa',     est:'PD+MR1',status:'Ajustando documentos',    who:'cbx',  dias:3,  prazo:'30/04/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'336K',vcbx:'84K', cur:6},
-  {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:30, prazo:'30/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6},
-  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:2,  prazo:'14/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5},
-  {proj:'Oga',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:1,  prazo:'28/04/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'209K',vcbx:'63K', cur:5},
-  {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:34, prazo:'30/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5},
-  {proj:'Ahu',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:2,  prazo:'08/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5},
-  {proj:'Hiwi',    est:'MR3',   status:'Esperando aval. do VVB',  who:'vvb',  dias:2,  prazo:'—',       iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3},
-  {proj:'Ybyrá',   est:'MR1',   status:'Esperando aval. do VVB',  who:'vvb',  dias:142,prazo:'—',       iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3},
+  {proj:'Hiwi',    est:'MR2',   status:'Esperando 3R Verra',      who:'verra',dias:16, prazo:'10/04/26',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:6},
+  {proj:'Awa',     est:'PD+MR1',status:'Ajustando documentos',    who:'cbx',  dias:4,  prazo:'10/04/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'238K',vcbx:'59K', cur:6},
+  {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:33, prazo:'23/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6},
+  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:5,  prazo:'04/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5},
+  {proj:'Oga',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:3,  prazo:'28/04/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:5},
+  {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:37, prazo:'23/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5},
+  {proj:'Ahu',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:11, prazo:'08/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5},
+  {proj:'Hiwi',    est:'MR3',   status:'Esperando aval. do VVB',  who:'vvb',  dias:5,  prazo:'—',       iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3},
+  {proj:'Ybyrá',   est:'MR1',   status:'Esperando aval. do VVB',  who:'vvb',  dias:145,prazo:'—',       iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3},
 ];
 
 /* ── VOL DATA: q=quarter (0-3), vcu=K ── */
 var volRows=[
-  {proj:'Awa',      meto:'VM0007',    q:1, vcu:336},
+  {proj:'Awa',      meto:'VM0007',    q:1, vcu:238},
   {proj:'Hiwi',     meto:'VM0015',    q:1, vcu:114},
   {proj:'Ybyrá PD', meto:'VM0015',    q:1, vcu:0  },
   {proj:'Ybyrá MR1',meto:'VM0015',    q:2, vcu:482},
-  {proj:'Oga',      meto:'VM0007/15', q:1, vcu:209},
+  {proj:'Oga',      meto:'VM0007/15', q:1, vcu:186},
   {proj:'Tatuy',    meto:'VM0015',    q:1, vcu:89 },
   {proj:'Angelim',  meto:'VM0015',    q:1, vcu:117},
-  {proj:'Ahu',      meto:'VM0015',    q:1, vcu:109},
+  {proj:'Ahu',      meto:'VM0015',    q:2, vcu:109},
 ];
 
 var QC=['q1','q2','q3','q4'];
@@ -487,7 +487,7 @@ function initChart(){
       labels:['Q1\njan–mar','Q2\nabr–jun','Q3\njul–set','Q4\nout–dez'],
       datasets:[{
         label:'VCUs (K)',
-        data:[0,905,482,0],
+        data:[0,743,590,0],
         backgroundColor:['rgba(0,92,53,.85)','rgba(43,168,74,.85)','rgba(123,45,139,.85)','rgba(150,150,150,.55)'],
         borderRadius:6,borderSkipped:false
       }]
