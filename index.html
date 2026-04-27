@@ -79,6 +79,7 @@ td:first-child{text-align:left;padding-left:16px;}
 .db.sla{background:var(--warn);color:#fff;}
 .db.ok{background:transparent;color:var(--text-muted);}
 .db.mid{background:transparent;color:var(--text-muted);}
+.prazo-overdue{display:inline-block;padding:2px 7px;border-radius:5px;border:1.5px solid var(--warn);color:var(--warn);font-weight:600;font-size:11px;}
 .hb{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 6px;border-radius:8px;background:#fef3e2;color:#92540a;}
 .hold-row{opacity:.62;}
 .hold-row:hover{background:#fffbf4!important;}
@@ -203,7 +204,7 @@ table.vt tfoot td.tq4{color:#888;}
     </div>
     <div class="kpis">
       <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">Em Certificação</div></div>
-      <div class="kpi"><div class="kv" style="color:var(--mint)">1.402K</div><div class="kl">VCUs Projetados</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--mint)">1.363K</div><div class="kl">VCUs Projetados</div></div>
       <div class="kpi"><div class="kv" style="color:#ff8a80">3</div><div class="kl">Acima do SLA</div></div>
       <div class="kpi"><div class="kv" style="color:rgba(255,255,255,.45)">5</div><div class="kl">On Hold</div></div>
     </div>
@@ -295,14 +296,14 @@ table.vt tfoot td.tq4{color:#888;}
           <tr>
             <td>Total</td>
             <td class="tq1">0</td>
-            <td class="tq2">743.125</td>
+            <td class="tq2">704.369</td>
             <td class="tq3">590.442</td>
             <td class="tq4">68.778</td>
           </tr>
         </tfoot>
       </table>
       <div class="grand">
-        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.402.345 VCUs</div></div>
+        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.363.589 VCUs</div></div>
         <div style="text-align:right"><div class="grand-lbl">Projetos</div><div class="grand-val" style="color:var(--mint)">8</div></div>
       </div>
     </div>
@@ -326,20 +327,20 @@ var STAGES=['Ativ','Escrita','PCP','VVB','1R','2R','3R','Emissão'];
 
 /* ── CERT DATA (dados atualizados imagens) ── */
 var certRows=[
-  {proj:'Hiwi',    est:'MR2',   status:'Esperando aval. Verra',   who:'verra',dias:2,  prazo:'30/04/26',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:6},
-  {proj:'Awa',     est:'PD+MR1',status:'Ajustando documentos',    who:'cbx',  dias:13, prazo:'22/04/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'238K',vcbx:'59K', cur:6},
-  {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:42, prazo:'23/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6},
-  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:12, prazo:'04/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5},
-  {proj:'Oga',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:12, prazo:'28/04/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:5},
-  {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:46, prazo:'23/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5},
-  {proj:'Ahu',     est:'PD+MR1',status:'Respondendo 2R Verra',    who:'cbx',  dias:1,  prazo:'29/04/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5},
-  {proj:'Hiwi',    est:'MR3',   status:'Esperando aval. do VVB',  who:'vvb',  dias:14, prazo:'—',       iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3},
-  {proj:'Ybyrá',   est:'MR1',   status:'Esperando aval. do VVB',  who:'vvb',  dias:154,prazo:'—',       iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3},
+  {proj:'Hiwi',    est:'MR2',   status:'Esperando aval. Verra',   who:'verra',dias:4,  prazo:'30/04/26',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:6},
+  {proj:'Awa',     est:'PD+MR1',status:'Em aval. do VVB (3R)',    who:'vvb',  dias:1,  prazo:'30/04/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6},
+  {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:44, prazo:'23/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6},
+  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:14, prazo:'04/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5},
+  {proj:'Oga',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:14, prazo:'28/04/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:5},
+  {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:48, prazo:'23/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5},
+  {proj:'Ahu',     est:'PD+MR1',status:'Respondendo 2R Verra',    who:'cbx',  dias:3,  prazo:'29/04/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5},
+  {proj:'Hiwi',    est:'MR3',   status:'Ajustando documentos',    who:'cbx',  dias:16, prazo:'01/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3},
+  {proj:'Ybyrá',   est:'MR1',   status:'Ajustando documentos',    who:'cbx',  dias:156,prazo:'01/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3},
 ];
 
 /* ── VOL DATA: q=quarter (0-3), vcu=K ── */
 var volRows=[
-  {proj:'Awa',      meto:'VM0007',    q:1, vcu:238},
+  {proj:'Awa',      meto:'VM0007',    q:1, vcu:199},
   {proj:'Hiwi',     meto:'VM0015',    q:1, vcu:114},
   {proj:'Ybyrá PD', meto:'VM0015',    q:1, vcu:0  },
   {proj:'Ybyrá MR1',meto:'VM0015',    q:2, vcu:482},
@@ -382,7 +383,20 @@ function renderCert(){
     h+='<td><span class="wb '+wc+'">'+wl+'</span></td>';
     h+='<td><span style="font-size:11px;font-weight:500;color:#3d5a48">'+r.status+'</span></td>';
     h+='<td><span class="db '+dc+'">'+r.dias+'</span></td>';
-    h+='<td '+ps+' style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
+    var prazoHtml;
+    if(r.prazo && r.prazo !== '—') {
+      var parts = r.prazo.split('/');
+      var prazoDate = new Date(parseInt('20'+parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
+      var today = new Date(); today.setHours(0,0,0,0);
+      if(prazoDate < today) {
+        prazoHtml = '<td><span class="prazo-overdue">'+r.prazo+'</span></td>';
+      } else {
+        prazoHtml = '<td style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
+      }
+    } else {
+      prazoHtml = '<td style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
+    }
+    h+=prazoHtml;
     h+='<td class="tdm">'+r.iniMR+'</td>';
     h+='<td class="tdm">'+r.fimMR+'</td>';
     h+='<td style="font-size:11px;font-weight:600">'+r.aud+'</td>';
@@ -488,7 +502,7 @@ function initChart(){
       labels:['Q1\njan–mar','Q2\nabr–jun','Q3\njul–set','Q4\nout–dez'],
       datasets:[{
         label:'VCUs (K)',
-        data:[0,743,590,69],
+        data:[0,704,590,69],
         backgroundColor:['rgba(0,92,53,.85)','rgba(43,168,74,.85)','rgba(123,45,139,.85)','rgba(150,150,150,.55)'],
         borderRadius:6,borderSkipped:false
       }]
