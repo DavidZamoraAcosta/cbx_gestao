@@ -79,6 +79,12 @@ td:first-child{text-align:left;padding-left:16px;}
 .db.sla{background:var(--warn);color:#fff;}
 .db.ok{background:transparent;color:var(--text-muted);}
 .db.mid{background:transparent;color:var(--text-muted);}
+.find-badge{display:inline-flex;align-items:center;justify-content:center;min-width:28px;height:20px;border-radius:4px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;padding:0 5px;background:transparent;color:var(--text);}
+.find-open{}
+.find-open.zero{}
+.find-total{color:var(--text-muted);}
+.find-na{color:var(--text-muted);font-size:11px;}
+.find-open.urgent{}
 .prazo-overdue{display:inline-block;padding:2px 7px;border-radius:5px;border:1.5px solid var(--warn);color:var(--warn);font-weight:600;font-size:11px;}
 .hb{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:2px 6px;border-radius:8px;background:#fef3e2;color:#92540a;}
 .hold-row{opacity:.62;}
@@ -237,7 +243,7 @@ table.vt tfoot td.tq4{color:#888;}
           <th>Início MR</th>
           <th>Fim MR</th>
           <th>Auditor</th>
-          <th>Progresso</th>
+          <th>Find. Ab.</th><th>Find. Tot.</th><th>Progresso</th>
         </tr>
       </thead>
       <tbody id="cert-body"></tbody>
@@ -327,15 +333,15 @@ var STAGES=['Ativ','Escrita','PCP','VVB','1R','2R','3R','Emissão'];
 
 /* ── CERT DATA (dados atualizados imagens) ── */
 var certRows=[
-  {proj:'Hiwi',    est:'MR2',   status:'Esperando aval. Verra',   who:'verra',dias:5,  prazo:'30/04/26',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:6},
-  {proj:'Awa',     est:'PD+MR1',status:'Em aval. do VVB (3R)',    who:'vvb',  dias:2,  prazo:'04/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6},
-  {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:45, prazo:'23/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6},
-  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:15, prazo:'04/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5},
-  {proj:'Oga',     est:'PD+MR1',status:'Aguardando submissão',    who:'verra',dias:1,  prazo:'28/04/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:5},
-  {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:49, prazo:'23/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5},
-  {proj:'Ahu',     est:'PD+MR1',status:'Respondendo 2R Verra',    who:'cbx',  dias:4,  prazo:'29/04/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5},
-  {proj:'Hiwi',    est:'MR3',   status:'Ajustando documentos',    who:'cbx',  dias:17, prazo:'01/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3},
-  {proj:'Ybyrá',   est:'MR1',   status:'Ajustando documentos',    who:'cbx',  dias:15, prazo:'01/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3},
+  {proj:'Hiwi',    est:'MR2',   status:'Esperando aval. Verra',   who:'verra',dias:5,  prazo:'30/04/26',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:6,fOpen:0,fTotal:24},
+  {proj:'Awa',     est:'PD+MR1',status:'Em aval. do VVB (3R)',    who:'vvb',  dias:2,  prazo:'04/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
+  {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:45, prazo:'23/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:18,fTotal:33},
+  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:15, prazo:'04/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5,fOpen:11,fTotal:42},
+  {proj:'Oga',     est:'PD+MR1',status:'Aguardando submissão',    who:'vvb',  dias:1,  prazo:'28/04/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:5,fOpen:8,fTotal:34},
+  {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:49, prazo:'23/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:null,fTotal:27},
+  {proj:'Ahu',     est:'PD+MR1',status:'Respondendo 2R Verra',    who:'cbx',  dias:4,  prazo:'29/04/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5,fOpen:9,fTotal:27},
+  {proj:'Hiwi',    est:'MR3',   status:'Ajustando documentos',    who:'cbx',  dias:17, prazo:'01/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3,fOpen:null,fTotal:null},
+  {proj:'Ybyrá',   est:'MR1',   status:'Ajustando documentos',    who:'cbx',  dias:15, prazo:'01/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3,fOpen:null,fTotal:null},
 ];
 
 /* ── VOL DATA: q=quarter (0-3), vcu=K ── */
@@ -400,10 +406,23 @@ function renderCert(){
     h+='<td class="tdm">'+r.iniMR+'</td>';
     h+='<td class="tdm">'+r.fimMR+'</td>';
     h+='<td style="font-size:11px;font-weight:600">'+r.aud+'</td>';
+    // Findings open
+    var foHtml, ftHtml;
+    if(r.fOpen===null){
+      foHtml='<td><span class="find-na">—</span></td>';
+    } else if(r.fOpen===0){
+      foHtml='<td><span class="find-badge find-open zero">0</span></td>';
+    } else if(r.fOpen>=15){
+      foHtml='<td><span class="find-badge find-open urgent">'+r.fOpen+'</span></td>';
+    } else {
+      foHtml='<td><span class="find-badge find-open">'+r.fOpen+'</span></td>';
+    }
+    ftHtml = r.fTotal===null ? '<td><span class="find-na">—</span></td>' : '<td><span class="find-badge find-total">'+r.fTotal+'</span></td>';
+    h+=foHtml+ftHtml;
     h+='<td><div class="gantt"><div class="gbar"><div class="gfill" style="width:'+pct+'%"></div><div class="gmark" style="left:'+pct+'%"></div></div><span class="gstage">'+STAGES[r.cur]+'</span></div></td>';
     h+='</tr>';
     h+='<tr class="xrow" id="xr-'+i+'">';
-    h+='<td colspan="9"><div class="xinner">';
+    h+='<td colspan="11"><div class="xinner">';
     h+='<div><div class="xlbl">VCUs</div><div class="xval">'+r.vcu+'</div><div class="xsub">VCBx: '+r.vcbx+'</div></div>';
     h+='<div><div class="xlbl">Início MR</div><div class="xval" style="font-size:12px">'+r.iniMR+'</div></div>';
     h+='<div><div class="xlbl">Fim MR</div><div class="xval" style="font-size:12px">'+r.fimMR+'</div></div>';
