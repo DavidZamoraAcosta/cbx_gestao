@@ -72,7 +72,7 @@ td:first-child{text-align:left;padding-left:16px;}
 .wb{display:inline-flex;align-items:center;padding:2px 8px;border-radius:20px;font-size:9.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;}
 .wvvb{background:#e8eeff;color:#1D4ED8;}
 .wverra{background:#fff3e8;color:#B45309;}
-.wcbx{background:#e8f4ff;color:#1a5eb8;}
+.wcbx{background:#e6f4ea;color:#1a7a3c;}
 .pname{font-family:'Manrope',sans-serif;font-size:12.5px;font-weight:800;color:var(--forest);}
 .pstage{font-size:9.5px;color:var(--text-muted);margin-top:1px;}
 .db{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:21px;border-radius:5px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:800;padding:0 5px;}
@@ -339,12 +339,12 @@ var STAGES=['Ativ','Escrita','PCP','VVB','1R','2R','3R','Em'];
 /* ── CERT DATA (dados atualizados imagens) ── */
 var certRows=[
   {proj:'Hiwi',    est:'MR2',   status:'Aprovado 🎉',              who:'verra',dias:-1, prazo:'—',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:7,fOpen:0,fTotal:24},
-  {proj:'Awa',     est:'PD+MR1',status:'Em aval. do VVB (3R)',    who:'vvb',  dias:4,  prazo:'04/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
-  {proj:'Tatuy',   est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:47, prazo:'23/04/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:18,fTotal:33},
+  {proj:'Awa',     est:'PD+MR1',status:'Em aval. do VVB (3R)',    who:'vvb',  dias:4,  prazo:'08/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
+  {proj:'Tatuy',   est:'PD+MR1',status:'Respondendo 3R Verra',    who:'cbx',  dias:1,  prazo:'15/05/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:14,fTotal:33},
   {proj:'Oga',     est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:2,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:6,fOpen:8,fTotal:34},
   {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:17, prazo:'04/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5,fOpen:11,fTotal:42},
-  {proj:'Angelim', est:'PD+MR1',status:'Esperando 2R Verra',      who:'verra',dias:51, prazo:'23/04/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:null,fTotal:27},
-  {proj:'Ahu',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:2,  prazo:'06/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5,fOpen:9,fTotal:27},
+  {proj:'Angelim', est:'PD+MR1',status:'Respondendo 2R Verra',    who:'cbx',  dias:1,  prazo:'15/05/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:5,fTotal:27},
+  {proj:'Ahu',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:1,  prazo:'06/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5,fOpen:9,fTotal:27},
   {proj:'Hiwi',    est:'MR3',   status:'Ajustando documentos',    who:'cbx',  dias:19, prazo:'01/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3,fOpen:null,fTotal:null},
   {proj:'Ybyrá',   est:'MR1',   status:'Ajustando documentos',    who:'cbx',  dias:159,prazo:'01/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3,fOpen:null,fTotal:null}
 ];
@@ -393,7 +393,7 @@ function renderCert(){
     var wc=r.who==='vvb'?'wvvb':(r.who==='cbx'?'wcbx':'wverra');
     h+='<td><span class="wb '+wc+'">'+wl+'</span></td>';
     var statusHtml;
-    if(r.status.indexOf('Aprovado') !== -1){
+    if(r.status.indexOf('Aprovado') !== -1 || r.status.indexOf('Concluído') !== -1){
       statusHtml = '<td><span class="status-aprovado">'+r.status+'</span></td>';
     } else {
       statusHtml = '<td><span style="font-size:11px;font-weight:500;color:#3d5a48">'+r.status+'</span></td>';
