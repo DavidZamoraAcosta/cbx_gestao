@@ -59,7 +59,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-
 .sc{font-size:9px;color:rgba(255,255,255,.4);background:rgba(255,255,255,.1);padding:1px 7px;border-radius:10px;font-weight:600;}
 
 /* TABLE */
-table{width:100%;border-collapse:collapse;}
+table{width:100%;border-collapse:collapse;overflow:visible;}
 thead th{background:#f2f8f4;padding:7px 10px;font-size:9.5px;font-weight:700;color:var(--text-mid);text-align:center;border-bottom:1.5px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;}
 thead th:first-child{text-align:left;padding-left:16px;}
 thead th:hover{background:#e5f2eb;}
@@ -85,6 +85,23 @@ td:first-child{text-align:left;padding-left:16px;}
 .find-total{color:var(--text-muted);}
 .find-na{color:var(--text-muted);font-size:11px;}
 .find-open.urgent{}
+
+.tip-wrap{position:relative;display:inline-flex;align-items:center;gap:3px;cursor:help;}
+.tip-wrap .tip{
+  display:none;position:fixed;z-index:9999;
+  background:#1a1a1a;color:#fff;
+  font-size:11px;font-weight:400;line-height:1.4;
+  padding:6px 9px;border-radius:6px;
+  white-space:normal;width:210px;
+  pointer-events:none;
+  box-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+.tip-wrap .tip::after{content:none;}
+.tip-wrap:hover .tip{display:block;}
+.tip-icon{display:inline-flex;align-items:center;justify-content:center;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--text-muted);color:#fff;
+  font-size:8px;font-weight:800;line-height:1;flex-shrink:0;cursor:help;}
 .status-aprovado{
   display:inline-flex;align-items:center;gap:5px;
   font-family:'Manrope',sans-serif;font-size:11.5px;font-weight:800;
@@ -199,7 +216,7 @@ table.vt tfoot td.tq4{color:#888;}
       <span class="bsub">Pipeline Verra</span>
     </div>
     <div class="nav-right">
-      <span class="sla-badge">⚠ Dias acima do SLA</span>
+      <span class="sla-badge">⚠ Days over SLA</span>
       <span class="upd" id="upd"></span>
     </div>
   </div>
@@ -211,12 +228,12 @@ table.vt tfoot td.tq4{color:#888;}
     <div>
       <div class="eyebrow">Portfolio Dashboard</div>
       <div class="htitle">Pipeline Verra</div>
-      <div class="hsub">Monitoramento de Certificação e Volume · Carbonext</div>
+      <div class="hsub">Certification & Volume Monitoring · Carbonext</div>
     </div>
     <div class="kpis">
-      <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">Em Certificação</div></div>
-      <div class="kpi"><div class="kv" style="color:var(--mint)">1.363K</div><div class="kl">VCUs Projetados</div></div>
-      <div class="kpi"><div class="kv" style="color:#ff8a80">3</div><div class="kl">Acima do SLA</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">In Certification</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--mint)">1.363K</div><div class="kl">Projected VCUs</div></div>
+      <div class="kpi"><div class="kv" style="color:#ff8a80">3</div><div class="kl">Over SLA</div></div>
       <div class="kpi"><div class="kv" style="color:rgba(255,255,255,.45)">5</div><div class="kl">On Hold</div></div>
     </div>
   </div>
@@ -230,25 +247,50 @@ table.vt tfoot td.tq4{color:#888;}
   <div class="panel">
     <div class="fbar">
       <div class="swrap"><input class="srch" type="text" placeholder="Buscar…" id="srch" oninput="doFilter()"></div>
-      <div class="chip on"  data-f="all"   onclick="setChip(this)">Todos</div>
-      <div class="chip"     data-f="verra" onclick="setChip(this)">Com Verra</div>
-      <div class="chip"     data-f="vvb"   onclick="setChip(this)">Com VVB</div>
+      <div class="chip on"  data-f="all"   onclick="setChip(this)">All</div>
+      <div class="chip"     data-f="verra" onclick="setChip(this)">With Verra</div>
+      <div class="chip"     data-f="vvb"   onclick="setChip(this)">With VVB</div>
       <div class="chip"     data-f="sla"   onclick="setChip(this)">⚠ SLA</div>
     </div>
 
-    <div class="sband cert"><span class="sl">Certificação</span><span class="sc">9 projetos</span></div>
+    <div class="sband cert"><span class="sl">Certification</span><span class="sc">9 projetos</span></div>
     <table id="cert-tbl">
       <thead>
         <tr>
-          <th onclick="srt('cert-tbl',0)">Projeto ↕</th>
-          <th>Com quem</th>
-          <th>Status</th>
-          <th onclick="srt('cert-tbl',2)">Dias ↕</th>
-          <th>Prazo</th>
-          <th>Início MR</th>
-          <th>Fim MR</th>
-          <th>Auditor</th>
-          <th>Find. Ab.</th><th>Find. Tot.</th><th>Progresso</th>
+          <th rowspan="2" onclick="srt('cert-tbl',0)" style="vertical-align:bottom;padding-bottom:5px;">Project ↕</th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Responsible</th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Status</th>
+          <th rowspan="2" onclick="srt('cert-tbl',2)" style="vertical-align:bottom;padding-bottom:5px;">
+      <span class="tip-wrap">Days ↕<span class="tip-icon">?</span>
+        <span class="tip">Number of days the project has been in its current status.</span>
+      </span></th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Deadline</th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">MR Start</th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">MR End</th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Auditor</th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">
+      <span class="tip-wrap">Open Fds.<span class="tip-icon">?</span>
+        <span class="tip">Number of open findings from the last PRR round.</span>
+      </span></th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">
+      <span class="tip-wrap">Total Fds.<span class="tip-icon">?</span>
+        <span class="tip">Total number of findings identified across all PRR rounds.</span>
+      </span></th>
+          <th style="text-align:center;padding-bottom:1px;border-bottom:none;font-size:9.5px;">Progress</th>
+        </tr>
+        <tr>
+          <th style="padding:0;background:#eaf2ec;border-bottom:1.5px solid var(--border);">
+            <div style="display:flex;width:100%;min-width:160px;">
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">Ativ<span class="tip">Project activities and documentation are being prepared.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">Writ<span class="tip">Monitoring Report is being drafted.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">PCP<span class="tip">Public Comment Period is open.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">VVB<span class="tip">Project is currently under audit by a Validation/Verification Body.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">1R<span class="tip">First round of the Verra Project Progress Review (PPR) is ongoing.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">2R<span class="tip">Second round of the Verra PPR is ongoing.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">3R<span class="tip">Third round of the Verra PPR is ongoing.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">Apr<span class="tip">VCUs have been approved and issued by Verra.</span></span>
+            </div>
+          </th>
         </tr>
       </thead>
       <tbody id="cert-body"></tbody>
@@ -256,13 +298,13 @@ table.vt tfoot td.tq4{color:#888;}
 
     <div class="sec-gap"></div>
 
-    <div class="sband hold"><span class="sl">Suspenso / On Hold</span><span class="sc">5 projetos</span></div>
+    <div class="sband hold"><span class="sl">Suspended / On Hold</span><span class="sc">5 projetos</span></div>
     <table>
       <thead>
         <tr>
-          <th style="text-align:left;padding-left:16px">Projeto</th>
-          <th>Estágio</th><th>Status</th>
-          <th>Início MR</th><th>Fim MR</th>
+          <th style="text-align:left;padding-left:16px">Project</th>
+          <th>Stage</th><th>Status</th>
+          <th>MR Start</th><th>MR End</th>
           <th>Auditor</th><th>VCUs</th><th>VCBx</th>
         </tr>
       </thead>
@@ -277,10 +319,10 @@ table.vt tfoot td.tq4{color:#888;}
 
     <div class="legend-bar">
       <span style="font-weight:700;color:var(--text-mid);">Gantt:</span>
-      <div class="li"><div class="ls" style="background:var(--forest)"></div>Concluída</div>
-      <div class="li"><div class="lc"></div>Em curso</div>
-      <div class="li"><div class="le"></div>Futura</div>
-      <div class="li" style="margin-left:8px;"><div class="lr"></div>Dias acima do SLA</div>
+      <div class="li"><div class="ls" style="background:var(--forest)"></div>Completed</div>
+      <div class="li"><div class="lc"></div>In progress</div>
+      <div class="li"><div class="le"></div>Future</div>
+      <div class="li" style="margin-left:8px;"><div class="lr"></div>Days over SLA</div>
     </div>
   </div>
 
@@ -290,12 +332,12 @@ table.vt tfoot td.tq4{color:#888;}
     <!-- Volume table: Projeto + Q1 Q2 Q3 Q4 -->
     <div class="vol-wrap">
       <div class="vol-hdr">
-        <span class="vol-hdr-t">Volume Total — VCUs Projetados</span>
+        <span class="vol-hdr-t">Volume Total — Projected VCUs</span>
       </div>
       <table class="vt">
         <thead>
           <tr>
-            <th style="background:var(--forest);color:rgba(255,255,255,.5);">Projeto</th>
+            <th style="background:var(--forest);color:rgba(255,255,255,.5);">Project</th>
             <th class="qh q1">Q1</th>
             <th class="qh q2">Q2</th>
             <th class="qh q3">Q3</th>
@@ -314,7 +356,7 @@ table.vt tfoot td.tq4{color:#888;}
         </tfoot>
       </table>
       <div class="grand">
-        <div><div class="grand-lbl">Total Portfólio</div><div class="grand-val">1.363.589 VCUs</div></div>
+        <div><div class="grand-lbl">Portfolio Total</div><div class="grand-val">1.363.589 VCUs</div></div>
         <div style="text-align:right"><div class="grand-lbl">Projetos</div><div class="grand-val" style="color:var(--mint)">8</div></div>
       </div>
     </div>
@@ -322,8 +364,8 @@ table.vt tfoot td.tq4{color:#888;}
     <!-- Chart -->
     <div class="chart-card">
       <div class="chart-hdr">
-        <div class="cht">VCUs por Quarter — 2026</div>
-        <div class="chs">Projeção de emissão acumulada</div>
+        <div class="cht">VCUs by Quarter — 2026</div>
+        <div class="chs">Cumulative issuance projection</div>
       </div>
       <div class="chart-body" style="height:190px;">
         <canvas id="chartQ"></canvas>
@@ -334,19 +376,19 @@ table.vt tfoot td.tq4{color:#888;}
 </div>
 
 <script>
-var STAGES=['Ativ','Escrita','PCP','VVB','1R','2R','3R','Em'];
+var STAGES=['Ativ','Writ','PCP','VVB','1R','2R','3R','Apr'];
 
 /* ── CERT DATA (dados atualizados imagens) ── */
 var certRows=[
-  {proj:'Hiwi',    est:'MR2',   status:'Aprovado 🎉',              who:'verra',dias:-1, prazo:'—',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:7,fOpen:0,fTotal:24},
-  {proj:'Awa',     est:'PD+MR1',status:'Em aval. do VVB (3R)',    who:'vvb',  dias:7,  prazo:'08/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
-  {proj:'Tatuy',   est:'PD+MR1',status:'Respondendo 3R Verra',    who:'cbx',  dias:4,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:14,fTotal:33},
-  {proj:'Oga',     est:'PD+MR1',status:'Esperando 3R Verra',      who:'verra',dias:5,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:6,fOpen:8,fTotal:34},
-  {proj:'Ybyrá',   est:'PD',    status:'Em aval. do VVB (2R)',    who:'vvb',  dias:20, prazo:'06/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5,fOpen:11,fTotal:42},
-  {proj:'Angelim', est:'PD+MR1',status:'Respondendo 2R Verra',    who:'cbx',  dias:4,  prazo:'15/05/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:5,fTotal:27},
-  {proj:'Ahu',     est:'PD+MR1',status:'Em aval. do VVB (2R)',    who:'vvb',  dias:4,  prazo:'07/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5,fOpen:9,fTotal:27},
-  {proj:'Hiwi',    est:'MR3',   status:'Ajustando documentos',    who:'cbx',  dias:22, prazo:'31/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3,fOpen:null,fTotal:null},
-  {proj:'Ybyrá',   est:'MR1',   status:'Ajustando documentos',    who:'cbx',  dias:162,prazo:'31/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3,fOpen:null,fTotal:null}
+  {proj:'Hiwi',    est:'MR2',   status:'Verified',              who:'verra',dias:-1, prazo:'—',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:7,fOpen:0,fTotal:24},
+  {proj:'Awa',     est:'PD+MR1',status:'Under VVB review (3R)',    who:'vvb',  dias:9,  prazo:'08/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
+  {proj:'Tatuy',   est:'PD+MR1',status:'Responding 3R Verra',    who:'cbx',  dias:6,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:14,fTotal:33},
+  {proj:'Oga',     est:'PD+MR1',status:'Awaiting 3R Verra',      who:'verra',dias:7,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:6,fOpen:8,fTotal:34},
+  {proj:'Ybyrá',   est:'PD',    status:'Under VVB review (2R)',    who:'vvb',  dias:22, prazo:'14/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5,fOpen:11,fTotal:42},
+  {proj:'Angelim', est:'PD+MR1',status:'Responding 2R Verra',    who:'cbx',  dias:6,  prazo:'15/05/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:5,fTotal:27},
+  {proj:'Ahu',     est:'PD+MR1',status:'Awaiting submission',    who:'verra',dias:1,  prazo:'08/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5,fOpen:9,fTotal:27},
+  {proj:'Hiwi',    est:'MR3',   status:'Adjusting documents',    who:'cbx',  dias:24, prazo:'31/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3,fOpen:null,fTotal:null},
+  {proj:'Ybyrá',   est:'MR1',   status:'Adjusting documents',    who:'cbx',  dias:164,prazo:'31/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3,fOpen:null,fTotal:null}
 ];
 
 /* ── VOL DATA: q=quarter (0-3), vcu=K ── */
@@ -393,7 +435,7 @@ function renderCert(){
     var wc=r.who==='vvb'?'wvvb':(r.who==='cbx'?'wcbx':'wverra');
     h+='<td><span class="wb '+wc+'">'+wl+'</span></td>';
     var statusHtml;
-    if(r.status.indexOf('Aprovado') !== -1 || r.status.indexOf('Concluído') !== -1){
+    if(r.status.indexOf('Verified') !== -1){
       statusHtml = '<td><span class="status-aprovado">'+r.status+'</span></td>';
     } else {
       statusHtml = '<td><span style="font-size:11px;font-weight:500;color:#3d5a48">'+r.status+'</span></td>';
@@ -430,15 +472,28 @@ function renderCert(){
     }
     ftHtml = r.fTotal===null ? '<td><span class="find-na">—</span></td>' : '<td><span class="find-badge find-total">'+r.fTotal+'</span></td>';
     h+=foHtml+ftHtml;
-    h+='<td><div class="gantt"><div class="gbar"><div class="gfill" style="width:'+pct+'%"></div><div class="gmark" style="left:'+pct+'%"></div></div><span class="gstage">'+STAGES[r.cur]+'</span></div></td>';
+    var stageTips={
+  'Ativ':'Project activities and documentation being prepared.',
+  'Writ':'Monitoring Report is being drafted.',
+  'PCP':'Public Comment Period is open.',
+  'VVB':'Project is under audit by a Validation/Verification Body.',
+  '1R':'First round of the Verra PPR is ongoing.',
+  '2R':'Second round of the Verra PPR is ongoing.',
+  '3R':'Third round of the Verra PPR is ongoing.',
+  'Apr':'VCUs have been approved and issued by Verra.'
+};
+    var stageLbl=STAGES[r.cur];
+    var stageTip=stageTips[stageLbl]||'';
+    var stageEl=stageTip?'<span class="tip-wrap gstage">'+stageLbl+'<span class="tip">'+stageTip+'</span></span>':'<span class="gstage">'+stageLbl+'</span>';
+    h+='<td><div class="gantt"><div class="gbar"><div class="gfill" style="width:'+pct+'%"></div><div class="gmark" style="left:'+pct+'%"></div></div>'+stageEl+'</div></td>';
     h+='</tr>';
     h+='<tr class="xrow" id="xr-'+i+'">';
     h+='<td colspan="11"><div class="xinner">';
     h+='<div><div class="xlbl">VCUs</div><div class="xval">'+r.vcu+'</div><div class="xsub">VCBx: '+r.vcbx+'</div></div>';
-    h+='<div><div class="xlbl">Início MR</div><div class="xval" style="font-size:12px">'+r.iniMR+'</div></div>';
-    h+='<div><div class="xlbl">Fim MR</div><div class="xval" style="font-size:12px">'+r.fimMR+'</div></div>';
-    h+='<div><div class="xlbl">Etapa</div><div class="xval" style="color:var(--leaf)">'+STAGES[r.cur]+'</div><div class="xsub">'+r.cur+'/'+(STAGES.length-1)+'</div></div>';
-    h+='<div style="flex:1"><div class="xlbl">Progressão</div><div class="stags">'+chips+'</div></div>';
+    h+='<div><div class="xlbl">MR Start</div><div class="xval" style="font-size:12px">'+r.iniMR+'</div></div>';
+    h+='<div><div class="xlbl">MR End</div><div class="xval" style="font-size:12px">'+r.fimMR+'</div></div>';
+    h+='<div><div class="xlbl">Stage</div><div class="xval" style="color:var(--leaf)">'+STAGES[r.cur]+'</div><div class="xsub">'+r.cur+'/'+(STAGES.length-1)+'</div></div>';
+    h+='<div style="flex:1"><div class="xlbl">Progression</div><div class="stags">'+chips+'</div></div>';
     h+='</div></td></tr>';
   }
   tb.innerHTML=h;
@@ -552,9 +607,23 @@ function initChart(){
 }
 
 /* ── INIT ── */
+document.addEventListener('mousemove',function(e){
+  var tips=document.querySelectorAll('.tip-wrap:hover .tip');
+  for(var i=0;i<tips.length;i++){
+    tips[i].style.left=(e.clientX+12)+'px';
+    tips[i].style.top=(e.clientY-30)+'px';
+  }
+});
+document.addEventListener('mousemove',function(e){
+  var tips=document.querySelectorAll('.tip-wrap:hover .tip');
+  for(var i=0;i<tips.length;i++){
+    tips[i].style.left=(e.clientX+12)+'px';
+    tips[i].style.top=(e.clientY-30)+'px';
+  }
+});
 window.addEventListener('DOMContentLoaded',function(){
   var u=document.getElementById('upd');
-  if(u) u.textContent='Atualizado '+new Date().toLocaleDateString('pt-BR');
+  if(u) u.textContent='Updated '+new Date().toLocaleDateString('pt-BR');
   renderCert();
   renderVol();
   initChart();
