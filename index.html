@@ -113,11 +113,17 @@ td:first-child{text-align:left;padding-left:16px;}
 .hold-row:hover{background:#fffbf4!important;}
 
 /* GANTT */
-.gantt{display:flex;align-items:center;gap:12px;min-width:150px;}
-.gbar{flex:1;height:5px;background:#e0ede4;border-radius:99px;position:relative;}
-.gfill{height:100%;border-radius:99px;background:var(--forest);}
-.gmark{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:var(--leaf);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--leaf);}
+.gantt{display:flex;align-items:center;width:100%;min-width:160px;}
+.gtrack{position:relative;flex:1;height:5px;background:#e0ede4;border-radius:99px;}
+.gfill{position:absolute;left:0;top:0;height:100%;border-radius:99px;background:var(--forest);}
+.gmark{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--leaf);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--leaf);transform:translate(-50%,-50%);z-index:2;}
 .gstage{font-size:9.5px;font-weight:700;color:var(--leaf);white-space:nowrap;}
+.ghdr{position:absolute;top:50%;transform:translate(-50%,-50%);
+  font-size:8px;font-weight:700;color:var(--text-muted);
+  display:inline-flex;align-items:center;justify-content:center;cursor:help;}
+.ghdr{position:absolute;top:50%;transform:translate(-50%,-50%);
+  font-size:8px;font-weight:700;color:var(--text-muted);
+  display:inline-flex;align-items:center;justify-content:center;cursor:help;}
 
 /* EXPAND */
 .xrow{display:none;background:#f6fbf8;}
@@ -277,18 +283,19 @@ table.vt tfoot td.tq4{color:#888;}
         <span class="tip">Total number of findings identified across all PRR rounds.</span>
       </span></th>
           <th style="text-align:center;padding-bottom:1px;border-bottom:none;font-size:9.5px;">Progress</th>
+          <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;width:44px;min-width:44px;">Stage</th>
         </tr>
         <tr>
-          <th style="padding:0;background:#eaf2ec;border-bottom:1.5px solid var(--border);">
-            <div style="display:flex;width:100%;min-width:160px;">
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">Ativ<span class="tip">Project activities and documentation are being prepared.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">Writ<span class="tip">Monitoring Report is being drafted.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">PCP<span class="tip">Public Comment Period is open.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">VVB<span class="tip">Project is currently under audit by a Validation/Verification Body.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">1R<span class="tip">First round of the Verra Project Progress Review (PPR) is ongoing.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">2R<span class="tip">Second round of the Verra PPR is ongoing.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">3R<span class="tip">Third round of the Verra PPR is ongoing.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;padding:3px 1px;"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#7a9488" stroke-width="1"/><polyline points="2.5,6 5,8.5 9.5,3.5" stroke="#7a9488" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="tip">VCUs have been approved and issued by Verra.</span></span>
+          <th style="padding:0;background:#eaf2ec;border-bottom:1.5px solid var(--border);position:relative;height:22px;">
+            <div style="position:relative;width:100%;height:22px;">
+              <span class="tip-wrap ghdr" style="left:6.25%">Ativ<span class="tip">Project activities and documentation being prepared.</span></span>
+              <span class="tip-wrap ghdr" style="left:18.75%">Writ<span class="tip">Monitoring Report is being drafted.</span></span>
+              <span class="tip-wrap ghdr" style="left:31.25%">PCP<span class="tip">Public Comment Period is open.</span></span>
+              <span class="tip-wrap ghdr" style="left:43.75%">VVB<span class="tip">Project is under audit by a VVB.</span></span>
+              <span class="tip-wrap ghdr" style="left:56.25%">1R<span class="tip">First round of the Verra PPR is ongoing.</span></span>
+              <span class="tip-wrap ghdr" style="left:68.75%">2R<span class="tip">Second round of the Verra PPR is ongoing.</span></span>
+              <span class="tip-wrap ghdr" style="left:81.25%">3R<span class="tip">Third round of the Verra PPR is ongoing.</span></span>
+              <span class="tip-wrap ghdr" style="left:93.75%"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#7a9488" stroke-width="1"/><polyline points="2.5,6 5,8.5 9.5,3.5" stroke="#7a9488" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="tip">VCUs have been approved and issued by Verra.</span></span>
             </div>
           </th>
         </tr>
@@ -489,10 +496,14 @@ function renderCert(){
       ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle"><circle cx="6" cy="6" r="5.5" stroke="#2BA84A" stroke-width="1.2"/><polyline points="2.5,6 5,8.5 9.5,3.5" stroke="#2BA84A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
       : stageLbl;
     var stageEl=stageTip?'<span class="tip-wrap gstage">'+stageDisplay+'<span class="tip">'+stageTip+'</span></span>':'<span class="gstage">'+stageDisplay+'</span>';
-    h+='<td><div class="gantt"><div class="gbar"><div class="gfill" style="width:'+pct+'%"></div><div class="gmark" style="left:'+pct+'%"></div></div>'+stageEl+'</div></td>';
+    var slots=STAGES.length; // 8
+    var markerPct=((r.cur+0.5)/slots*100).toFixed(2);
+    var fillPct=((r.cur/slots)*100).toFixed(2);
+    h+='<td style="padding-right:0;"><div class="gantt"><div class="gtrack"><div class="gfill" style="width:'+fillPct+'%"></div><div class="gmark" style="left:'+markerPct+'%"></div></div></div></td>';
+    h+='<td style="width:44px;min-width:44px;padding-left:8px;white-space:nowrap;">'+stageEl+'</td>';
     h+='</tr>';
     h+='<tr class="xrow" id="xr-'+i+'">';
-    h+='<td colspan="11"><div class="xinner">';
+    h+='<td colspan="12"><div class="xinner">';
     h+='<div><div class="xlbl">VCUs</div><div class="xval">'+r.vcu+'</div><div class="xsub">VCBx: '+r.vcbx+'</div></div>';
     h+='<div><div class="xlbl">MR Start</div><div class="xval" style="font-size:12px">'+r.iniMR+'</div></div>';
     h+='<div><div class="xlbl">MR End</div><div class="xval" style="font-size:12px">'+r.fimMR+'</div></div>';
