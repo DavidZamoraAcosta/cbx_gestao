@@ -113,7 +113,7 @@ td:first-child{text-align:left;padding-left:16px;}
 .hold-row:hover{background:#fffbf4!important;}
 
 /* GANTT */
-.gantt{display:flex;align-items:center;gap:6px;min-width:150px;}
+.gantt{display:flex;align-items:center;gap:12px;min-width:150px;}
 .gbar{flex:1;height:5px;background:#e0ede4;border-radius:99px;position:relative;}
 .gfill{height:100%;border-radius:99px;background:var(--forest);}
 .gmark{position:absolute;top:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:var(--leaf);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--leaf);}
@@ -288,7 +288,7 @@ table.vt tfoot td.tq4{color:#888;}
               <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">1R<span class="tip">First round of the Verra Project Progress Review (PPR) is ongoing.</span></span>
               <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">2R<span class="tip">Second round of the Verra PPR is ongoing.</span></span>
               <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">3R<span class="tip">Third round of the Verra PPR is ongoing.</span></span>
-              <span class="tip-wrap" style="flex:1;justify-content:center;font-size:8px;font-weight:700;color:var(--text-muted);padding:3px 1px;">Apr<span class="tip">VCUs have been approved and issued by Verra.</span></span>
+              <span class="tip-wrap" style="flex:1;justify-content:center;padding:3px 1px;"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#7a9488" stroke-width="1"/><polyline points="2.5,6 5,8.5 9.5,3.5" stroke="#7a9488" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="tip">VCUs have been approved and issued by Verra.</span></span>
             </div>
           </th>
         </tr>
@@ -376,19 +376,19 @@ table.vt tfoot td.tq4{color:#888;}
 </div>
 
 <script>
-var STAGES=['Ativ','Writ','PCP','VVB','1R','2R','3R','Apr'];
+var STAGES=['Ativ','Writ','PCP','VVB','1R','2R','3R','✓'];
 
 /* ── CERT DATA (dados atualizados imagens) ── */
 var certRows=[
-  {proj:'Hiwi',    est:'MR2',   status:'Verified',              who:'verra',dias:-1, prazo:'—',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:7,fOpen:0,fTotal:24},
-  {proj:'Awa',     est:'PD+MR1',status:'Under VVB review (3R)',    who:'vvb',  dias:9,  prazo:'08/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
-  {proj:'Tatuy',   est:'PD+MR1',status:'Responding 3R Verra',    who:'cbx',  dias:6,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:14,fTotal:33},
-  {proj:'Oga',     est:'PD+MR1',status:'Awaiting 3R Verra',      who:'verra',dias:7,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:6,fOpen:8,fTotal:34},
-  {proj:'Ybyrá',   est:'PD',    status:'Under VVB review (2R)',    who:'vvb',  dias:22, prazo:'14/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:5,fOpen:11,fTotal:42},
-  {proj:'Angelim', est:'PD+MR1',status:'Responding 2R Verra',    who:'cbx',  dias:6,  prazo:'15/05/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:5,fTotal:27},
-  {proj:'Ahu',     est:'PD+MR1',status:'Awaiting submission',    who:'verra',dias:1,  prazo:'08/05/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:5,fOpen:9,fTotal:27},
-  {proj:'Hiwi',    est:'MR3',   status:'Adjusting documents',    who:'cbx',  dias:24, prazo:'31/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3,fOpen:null,fTotal:null},
-  {proj:'Ybyrá',   est:'MR1',   status:'Adjusting documents',    who:'cbx',  dias:164,prazo:'31/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3,fOpen:null,fTotal:null}
+  {proj:'Hiwi',    est:'MR2',   status:'Verified 🎉',              who:'verra',dias:-1, prazo:'—',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:7,fOpen:0,fTotal:24},
+  {proj:'Awa',     est:'PD+MR1',status:'Under VVB review (3R)',    who:'vvb',  dias:10, prazo:'08/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
+  {proj:'Tatuy',   est:'PD+MR1',status:'Responding 3R Verra',    who:'cbx',  dias:7,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:14,fTotal:33},
+  {proj:'Oga',     est:'PD+MR1',status:'Awaiting 3R Verra',      who:'verra',dias:8,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:6,fOpen:8,fTotal:34},
+  {proj:'Ybyrá',   est:'PD',    status:'Awaiting 3R Verra',        who:'verra',dias:1,  prazo:'14/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:6,fOpen:11,fTotal:42},
+  {proj:'Ahu',     est:'PD+MR1',status:'Awaiting 3R Verra',      who:'verra',dias:1,  prazo:'19/06/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:6,fOpen:9,fTotal:27},
+  {proj:'Angelim', est:'PD+MR1',status:'Responding 2R Verra',    who:'cbx',  dias:7,  prazo:'15/05/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:5,fTotal:27},
+  {proj:'Hiwi',    est:'MR3',   status:'Adjusting documents',    who:'cbx',  dias:25, prazo:'31/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3,fOpen:null,fTotal:null},
+  {proj:'Ybyrá',   est:'MR1',   status:'Adjusting documents',    who:'cbx',  dias:165,prazo:'31/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3,fOpen:null,fTotal:null}
 ];
 
 /* ── VOL DATA: q=quarter (0-3), vcu=K ── */
@@ -480,11 +480,15 @@ function renderCert(){
   '1R':'First round of the Verra PPR is ongoing.',
   '2R':'Second round of the Verra PPR is ongoing.',
   '3R':'Third round of the Verra PPR is ongoing.',
-  'Apr':'VCUs have been approved and issued by Verra.'
+  '✓':'VCUs have been approved and issued by Verra.'
 };
     var stageLbl=STAGES[r.cur];
     var stageTip=stageTips[stageLbl]||'';
-    var stageEl=stageTip?'<span class="tip-wrap gstage">'+stageLbl+'<span class="tip">'+stageTip+'</span></span>':'<span class="gstage">'+stageLbl+'</span>';
+    var isCheck = stageLbl==='✓';
+    var stageDisplay = isCheck
+      ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle"><circle cx="6" cy="6" r="5.5" stroke="#2BA84A" stroke-width="1.2"/><polyline points="2.5,6 5,8.5 9.5,3.5" stroke="#2BA84A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      : stageLbl;
+    var stageEl=stageTip?'<span class="tip-wrap gstage">'+stageDisplay+'<span class="tip">'+stageTip+'</span></span>':'<span class="gstage">'+stageDisplay+'</span>';
     h+='<td><div class="gantt"><div class="gbar"><div class="gfill" style="width:'+pct+'%"></div><div class="gmark" style="left:'+pct+'%"></div></div>'+stageEl+'</div></td>';
     h+='</tr>';
     h+='<tr class="xrow" id="xr-'+i+'">';
