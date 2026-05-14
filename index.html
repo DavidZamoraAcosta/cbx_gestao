@@ -63,7 +63,7 @@ table{width:100%;border-collapse:collapse;overflow:visible;}
 thead th{background:#f2f8f4;padding:7px 10px;font-size:9.5px;font-weight:700;color:var(--text-mid);text-align:center;border-bottom:1.5px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;}
 thead th:first-child{text-align:left;padding-left:16px;}
 thead th:hover{background:#e5f2eb;}
-tbody tr{border-bottom:1px solid #ecf5ef;transition:background .1s;cursor:pointer;}
+tbody tr{border-bottom:1px solid #ecf5ef;transition:background .1s;}
 tbody tr:hover{background:#f2fbf5;}
 tbody tr:last-child{border-bottom:none;}
 td{padding:9px 10px;font-size:11.5px;color:var(--text);text-align:center;vertical-align:middle;}
@@ -102,6 +102,18 @@ td:first-child{text-align:left;padding-left:16px;}
   width:13px;height:13px;border-radius:50%;
   background:var(--text-muted);color:#fff;
   font-size:8px;font-weight:800;line-height:1;flex-shrink:0;cursor:help;}
+
+.findings-wrap{padding:12px 16px 10px;background:#fafcfa;border-top:1px solid var(--border);}
+.findings-title{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+.findings-list{display:flex;flex-direction:column;gap:5px;}
+.finding-row{display:flex;align-items:flex-start;gap:8px;flex-wrap:nowrap;}
+.finding-num{font-size:10.5px;font-weight:700;color:var(--text-muted);width:22px;flex-shrink:0;margin-top:2px;}
+.finding-topic{font-size:11px;color:var(--text);flex:1;line-height:1.4;min-width:0;}
+.finding-tag{font-size:9px;font-weight:700;padding:2px 8px;border-radius:99px;flex-shrink:0;white-space:nowrap;display:inline-block;margin-top:2px;}
+.ftag-open{background:#fff3e8;color:#B45309;}
+.ftag-crit{background:#fdecea;color:var(--warn);}
+.ftag-none{background:#e8f5e9;color:#2e7d32;}
+
 .status-aprovado{
   display:inline-flex;align-items:center;gap:5px;
   font-family:'Manrope',sans-serif;font-size:11.5px;font-weight:800;
@@ -118,9 +130,6 @@ td:first-child{text-align:left;padding-left:16px;}
 .gfill{position:absolute;left:0;top:0;height:100%;border-radius:99px;background:var(--forest);}
 .gmark{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;background:var(--leaf);border:2px solid #fff;box-shadow:0 0 0 1.5px var(--leaf);transform:translate(-50%,-50%);z-index:2;}
 .gstage{font-size:9.5px;font-weight:700;color:var(--leaf);white-space:nowrap;}
-.ghdr{position:absolute;top:50%;transform:translate(-50%,-50%);
-  font-size:8px;font-weight:700;color:var(--text-muted);
-  display:inline-flex;align-items:center;justify-content:center;cursor:help;}
 .ghdr{position:absolute;top:50%;transform:translate(-50%,-50%);
   font-size:8px;font-weight:700;color:var(--text-muted);
   display:inline-flex;align-items:center;justify-content:center;cursor:help;}
@@ -161,7 +170,7 @@ td:first-child{text-align:left;padding-left:16px;}
 /* RIGHT PANEL */
 .rpanel{display:flex;flex-direction:column;gap:14px;}
 
-/* VOL TABLE — simplified: Projeto + Q1–Q4 only */
+/* VOL TABLE */
 .vol-wrap{background:#fff;border-radius:12px;border:1.5px solid var(--border);overflow:hidden;box-shadow:0 1px 5px rgba(0,50,25,.06);}
 .vol-hdr{background:var(--forest);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;}
 .vol-hdr-t{font-family:'Manrope',sans-serif;font-size:9.5px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#fff;}
@@ -187,7 +196,7 @@ table.vt td:first-child{text-align:left;padding-left:14px;}
 .vzero{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d0e4d8;}
 .vdash{color:#ddd;font-size:12px;}
 
-/* Total row inside table */
+/* Total row */
 table.vt tfoot td{padding:8px 8px;background:#f2f8f4;border-top:2px solid var(--border);font-family:'Manrope',sans-serif;font-size:13px;font-weight:800;text-align:center;}
 table.vt tfoot td:first-child{text-align:left;padding-left:14px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);vertical-align:middle;}
 table.vt tfoot td.tq1{color:#005C35;}
@@ -234,12 +243,12 @@ table.vt tfoot td.tq4{color:#888;}
     <div>
       <div class="eyebrow">Portfolio Dashboard</div>
       <div class="htitle">Pipeline Verra</div>
-      <div class="hsub">Certification & Volume Monitoring · Carbonext</div>
+      <div class="hsub">Certification &amp; Volume Monitoring · Carbonext</div>
     </div>
     <div class="kpis">
       <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">In Certification</div></div>
       <div class="kpi"><div class="kv" style="color:var(--mint)">1.363K</div><div class="kl">Projected VCUs</div></div>
-      <div class="kpi"><div class="kv" style="color:#ff8a80">3</div><div class="kl">Over SLA</div></div>
+      <div class="kpi"><div class="kv" style="color:#ff8a80">1</div><div class="kl">Over SLA</div></div>
       <div class="kpi"><div class="kv" style="color:rgba(255,255,255,.45)">5</div><div class="kl">On Hold</div></div>
     </div>
   </div>
@@ -266,22 +275,25 @@ table.vt tfoot td.tq4{color:#888;}
           <th rowspan="2" onclick="srt('cert-tbl',0)" style="vertical-align:bottom;padding-bottom:5px;">Project ↕</th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Responsible</th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Status</th>
-          <th rowspan="2" onclick="srt('cert-tbl',2)" style="vertical-align:bottom;padding-bottom:5px;">
-      <span class="tip-wrap">Days ↕<span class="tip-icon">?</span>
-        <span class="tip">Number of days the project has been in its current status.</span>
-      </span></th>
+          <th rowspan="2" onclick="srt('cert-tbl',3)" style="vertical-align:bottom;padding-bottom:5px;">
+            <span class="tip-wrap">Days ↕<span class="tip-icon">?</span>
+              <span class="tip">Number of days the project has been in its current status.</span>
+            </span>
+          </th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Deadline</th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">MR Start</th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">MR End</th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">Auditor</th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">
-      <span class="tip-wrap">Open Fds.<span class="tip-icon">?</span>
-        <span class="tip">Number of open findings from the last PRR round.</span>
-      </span></th>
+            <span class="tip-wrap">Open Fds.<span class="tip-icon">?</span>
+              <span class="tip">Number of open findings from the last PRR round.</span>
+            </span>
+          </th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;">
-      <span class="tip-wrap">Total Fds.<span class="tip-icon">?</span>
-        <span class="tip">Total number of findings identified across all PRR rounds.</span>
-      </span></th>
+            <span class="tip-wrap">Total Fds.<span class="tip-icon">?</span>
+              <span class="tip">Total number of findings identified across all PRR rounds.</span>
+            </span>
+          </th>
           <th style="text-align:center;padding-bottom:1px;border-bottom:none;font-size:9.5px;">Progress</th>
           <th rowspan="2" style="vertical-align:bottom;padding-bottom:5px;width:44px;min-width:44px;">Stage</th>
         </tr>
@@ -336,7 +348,7 @@ table.vt tfoot td.tq4{color:#888;}
   <!-- RIGHT PANEL -->
   <div class="rpanel">
 
-    <!-- Volume table: Projeto + Q1 Q2 Q3 Q4 -->
+    <!-- Volume table -->
     <div class="vol-wrap">
       <div class="vol-hdr">
         <span class="vol-hdr-t">Volume Total — Projected VCUs</span>
@@ -385,39 +397,33 @@ table.vt tfoot td.tq4{color:#888;}
 <script>
 var STAGES=['Ativ','Writ','PCP','VVB','1R','2R','3R','✓'];
 
-/* ── CERT DATA (dados atualizados imagens) ── */
+/* ── CERT DATA ── */
 var certRows=[
-  {proj:'Hiwi',    est:'MR2',   status:'Verified 🎉',              who:'verra',dias:-1, prazo:'—',iniMR:'abr/22',fimMR:'abr/24',aud:'ESPL',     vcu:'114K',vcbx:'51K', cur:7,fOpen:0,fTotal:24},
-  {proj:'Awa',     est:'PD+MR1',status:'Under VVB review (3R)',    who:'vvb',  dias:10, prazo:'08/05/26',iniMR:'abr/22',fimMR:'ago/23',aud:'AENOR',    vcu:'199K',vcbx:'50K', cur:6,fOpen:1,fTotal:29},
-  {proj:'Tatuy',   est:'PD+MR1',status:'Responding 3R Verra',    who:'cbx',  dias:7,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'out/23',aud:'RUBY',     vcu:'89K', vcbx:'21K', cur:6,fOpen:14,fTotal:33},
-  {proj:'Oga',     est:'PD+MR1',status:'Awaiting 3R Verra',      who:'verra',dias:8,  prazo:'22/05/26',iniMR:'jul/21',fimMR:'dez/23',aud:'ECOLANCE', vcu:'186K',vcbx:'56K', cur:6,fOpen:8,fTotal:34},
-  {proj:'Ybyrá',   est:'PD',    status:'Awaiting 3R Verra',        who:'verra',dias:1,  prazo:'14/05/26',iniMR:'jan/22',fimMR:'nov/24',aud:'RUBY',     vcu:'0',   vcbx:'0',   cur:6,fOpen:11,fTotal:42},
-  {proj:'Ahu',     est:'PD+MR1',status:'Awaiting 3R Verra',      who:'verra',dias:1,  prazo:'19/06/26',iniMR:'abr/21',fimMR:'nov/23',aud:'AENOR',    vcu:'109K',vcbx:'33K', cur:6,fOpen:9,fTotal:27},
-  {proj:'Angelim', est:'PD+MR1',status:'Responding 2R Verra',    who:'cbx',  dias:7,  prazo:'15/05/26',iniMR:'set/20',fimMR:'dez/23',aud:'RUBY',     vcu:'117K',vcbx:'34K', cur:5,fOpen:5,fTotal:27},
-  {proj:'Hiwi',    est:'MR3',   status:'Adjusting documents',    who:'cbx',  dias:25, prazo:'31/05/26',iniMR:'abr/24',fimMR:'jul/25',aud:'ECOLANCE', vcu:'69K', vcbx:'31K', cur:3,fOpen:null,fTotal:null},
-  {proj:'Ybyrá',   est:'MR1',   status:'Adjusting documents',    who:'cbx',  dias:165,prazo:'31/05/26',iniMR:'jan/22',fimMR:'jan/25',aud:'RUBY',     vcu:'482K',vcbx:'145K',cur:3,fOpen:null,fTotal:null}
+  {proj:'Hiwi',    est:'MR2',    status:'Verified 🎉',              who:'verra', dias:-1,  prazo:'—',        iniMR:'abr/22', fimMR:'abr/24', aud:'ESPL',     vcu:'114K', vcbx:'51K',  cur:7, fOpen:0,    fTotal:24,   findings:[]},
+  {proj:'Awa',     est:'PD+MR1', status:'Under VVB review (3R)',    who:'vvb',   dias:13,  prazo:'08/05/26', iniMR:'abr/22', fimMR:'ago/23', aud:'AENOR',    vcu:'199K', vcbx:'50K',  cur:6, fOpen:1,    fTotal:29,   findings:[{n:8,topic:"RRD delineation — deforestation agents and similarity criteria not fully demonstrated",crit:false}]},
+  {proj:'Tatuy',   est:'PD+MR1', status:'Responding 3R Verra',      who:'cbx',   dias:10,  prazo:'22/05/26', iniMR:'jul/21', fimMR:'out/23', aud:'RUBY',     vcu:'89K',  vcbx:'21K',  cur:6, fOpen:14,   fTotal:33,   findings:[{n:8,topic:"Baseline model does not differentiate Legal Reserve vs non-LR deforestation risk",crit:true},{n:11,topic:"Deforestation rate calculation unclear and not reproducible",crit:true},{n:12,topic:"Deforestation risk maps — factor maps and distance classes not described",crit:true},{n:7,topic:"Project activity implementation status inconsistent across documents",crit:false},{n:17,topic:"Benefits Assessment Period not demonstrated",crit:false}]},
+  {proj:'Oga',     est:'PD+MR1', status:'Awaiting 3R Verra',        who:'verra', dias:11,  prazo:'22/05/26', iniMR:'jul/21', fimMR:'dez/23', aud:'ECOLANCE', vcu:'186K', vcbx:'56K',  cur:6, fOpen:8,    fTotal:34,   findings:[{n:10,topic:"Risk of AUD baseline overestimation",crit:true},{n:11,topic:"Reference Region not demonstrated to be representative of sustainable baseline",crit:true},{n:19,topic:"Spatial variables selection unclear and deforestation factor maps missing",crit:true},{n:20,topic:"Intention and rate of planned deforestation not demonstrated",crit:true},{n:24,topic:"Forest areas excluded from project boundaries without justification",crit:false}]},
+  {proj:'Ybyrá',   est:'PD',     status:'Awaiting 3R Verra',        who:'verra', dias:4,   prazo:'14/05/26', iniMR:'jan/22', fimMR:'nov/24', aud:'RUBY',     vcu:'0',    vcbx:'0',    cur:6, fOpen:11,   fTotal:42,   findings:[{n:13,topic:"Baseline model does not differentiate Legal Reserve vs non-LR deforestation risk — discount factor required",crit:true},{n:18,topic:"Effectiveness Index assessment insufficient — rationale not aligned with methodology definition",crit:true},{n:2,topic:"Leakage management zones delineated outside the Reference Region",crit:true},{n:3,topic:"Project Area inconsistent between PD and KML files — Fazenda Vinte de Maio exclusion pending Verra review",crit:false},{n:25,topic:"Loss event notification (fire, Nov 2024) — FAR for 1st Verification not yet raised",crit:false}]},
+  {proj:'Ahu',     est:'PD+MR1', status:'Awaiting 3R Verra',        who:'verra', dias:4,   prazo:'19/06/26', iniMR:'abr/21', fimMR:'nov/23', aud:'AENOR',    vcu:'109K', vcbx:'33K',  cur:6, fOpen:6,    fTotal:28,   findings:[{n:8,topic:"Baseline scenario not aligned with grouped projects requirements — LR/non-LR differentiation insufficient",crit:true},{n:13,topic:"Baseline deforestation rate (RBSLRR) — Puyravaud formula misapplied and decreasing trend not justified",crit:true},{n:14,topic:"Location of future deforestation — selected model inconsistency and factor map for distance to edge missing",crit:true},{n:28,topic:"Project boundary justification — LR deficit in CAR and forested areas excluded without full accounting",crit:false},{n:21,topic:"Expected community impacts — Section 4.1.1 MR change-in-well-being column insufficient",crit:false}]},
+  {proj:'Angelim', est:'PD+MR1', status:'Responding 2R Verra',      who:'cbx',   dias:10,  prazo:'15/05/26', iniMR:'set/20', fimMR:'dez/23', aud:'RUBY',     vcu:'117K', vcbx:'34K',  cur:5, fOpen:5,    fTotal:27,   findings:[{n:11,topic:"Baseline model LR/non-LR differentiation insufficient — vegetation surplus deforestation not addressed",crit:true},{n:17,topic:"Baseline deforestation rate (RBSLRR) calculation not demonstrated — Puyravaud formula required",crit:true},{n:9,topic:"Implementation status of project activities unclear — outputs and indicators for monitoring period missing",crit:false},{n:21,topic:"Stakeholder engagement occurred after project start — effective prior consultation not demonstrated",crit:false},{n:22,topic:"Grievance Redress Procedure — traditional conflict resolution method and neutral third party not specified",crit:false}]},
+  {proj:'Hiwi',    est:'MR3',    status:'Adjusting documents',       who:'cbx',   dias:28,  prazo:'31/05/26', iniMR:'abr/24', fimMR:'jul/25', aud:'ECOLANCE', vcu:'69K',  vcbx:'31K',  cur:3, fOpen:null, fTotal:null, findings:null},
+  {proj:'Ybyrá',   est:'MR1',    status:'Adjusting documents',       who:'cbx',   dias:168, prazo:'31/05/26', iniMR:'jan/22', fimMR:'jan/25', aud:'RUBY',     vcu:'482K', vcbx:'145K', cur:3, fOpen:null, fTotal:null, findings:null}
 ];
 
-/* ── VOL DATA: q=quarter (0-3), vcu=K ── */
+/* ── VOL DATA ── */
 var volRows=[
-  {proj:'Awa',      meto:'VM0007',    q:1, vcu:199},
-  {proj:'Hiwi',     meto:'VM0015',    q:1, vcu:114, emitted:true},
-  {proj:'Ybyrá PD', meto:'VM0015',    q:1, vcu:0  },
-  {proj:'Ybyrá MR1',meto:'VM0015',    q:2, vcu:482},
-  {proj:'Oga',      meto:'VM0007/15', q:1, vcu:186},
-  {proj:'Tatuy',    meto:'VM0015',    q:1, vcu:89 },
-  {proj:'Angelim',  meto:'VM0015',    q:1, vcu:117},
-  {proj:'Ahu',      meto:'VM0015',    q:2, vcu:109},
-  {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:69 },
+  {proj:'Awa',       meto:'VM0007',    q:1, vcu:199},
+  {proj:'Hiwi',      meto:'VM0015',    q:1, vcu:114, emitted:true},
+  {proj:'Ybyrá PD',  meto:'VM0015',    q:1, vcu:0},
+  {proj:'Ybyrá MR1', meto:'VM0015',    q:2, vcu:482},
+  {proj:'Oga',       meto:'VM0007/15', q:1, vcu:186},
+  {proj:'Tatuy',     meto:'VM0015',    q:1, vcu:89},
+  {proj:'Angelim',   meto:'VM0015',    q:1, vcu:117},
+  {proj:'Ahu',       meto:'VM0015',    q:2, vcu:109},
+  {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:69}
 ];
 
 var QC=['q1','q2','q3','q4'];
-
-function sColor(who,status){
-  if(who==='vvb') return '#1D4ED8';
-  if(status.indexOf('Respond')!==-1) return '#7B2D8B';
-  return '#B45309';
-}
 
 /* ── RENDER CERT ── */
 function renderCert(){
@@ -427,46 +433,41 @@ function renderCert(){
   for(var i=0;i<certRows.length;i++){
     var r=certRows[i];
     var sla=r.dias>30 && r.dias>=0;
-    var pct=Math.round((r.cur/(STAGES.length-1))*100);
     var dc=sla?'sla':(r.dias>=15?'mid':'ok');
-    var sc='#3d5a48';
-    var ps='';
-    var chips='';
-    for(var s=0;s<STAGES.length;s++){
-      var c2=s<r.cur?'done':(s===r.cur?'now':'fut');
-      chips+='<span class="stag '+c2+'">'+STAGES[s]+'</span>';
-    }
-    h+='<tr data-who="'+r.who+'" data-sla="'+(sla?'1':'0')+'" data-proj="'+r.proj.toLowerCase()+'" onclick="tx('+i+')">';
+    h+='<tr data-who="'+r.who+'" data-sla="'+(sla?'1':'0')+'" data-proj="'+r.proj.toLowerCase()+'" onclick="tx('+i+')" style="cursor:pointer">';
     h+='<td><div class="pname">'+r.proj+'</div><div class="pstage">'+r.est+'</div></td>';
     var wl=r.who==='vvb'?'VVB':(r.who==='cbx'?'CBX':'Verra');
     var wc=r.who==='vvb'?'wvvb':(r.who==='cbx'?'wcbx':'wverra');
     h+='<td><span class="wb '+wc+'">'+wl+'</span></td>';
     var statusHtml;
-    if(r.status.indexOf('Verified') !== -1){
-      statusHtml = '<td><span class="status-aprovado">'+r.status+'</span></td>';
+    if(r.status.indexOf('Verified')!==-1){
+      statusHtml='<td><span class="status-aprovado">'+r.status+'</span></td>';
     } else {
-      statusHtml = '<td><span style="font-size:11px;font-weight:500;color:#3d5a48">'+r.status+'</span></td>';
+      statusHtml='<td><span style="font-size:11px;font-weight:500;color:#3d5a48">'+r.status+'</span></td>';
     }
     h+=statusHtml;
-    if(r.dias<0){ h+='<td class="tdm" style="text-align:center">—</td>'; } else { h+='<td>'+(r.dias<=0?'<span class="tdm">—</span>':'<span class="db '+dc+'">'+r.dias+'</span>')+'</td>'; }
+    if(r.dias<0){
+      h+='<td class="tdm" style="text-align:center">—</td>';
+    } else {
+      h+='<td>'+(r.dias<=0?'<span class="tdm">—</span>':'<span class="db '+dc+'">'+r.dias+'</span>')+'</td>';
+    }
     var prazoHtml;
-    if(r.prazo && r.prazo !== '—') {
-      var parts = r.prazo.split('/');
-      var prazoDate = new Date(parseInt('20'+parts[2]), parseInt(parts[1])-1, parseInt(parts[0]));
-      var today = new Date(); today.setHours(0,0,0,0);
-      if(prazoDate < today) {
-        prazoHtml = '<td><span class="prazo-overdue">'+r.prazo+'</span></td>';
+    if(r.prazo && r.prazo!=='—'){
+      var parts=r.prazo.split('/');
+      var prazoDate=new Date(parseInt('20'+parts[2]),parseInt(parts[1])-1,parseInt(parts[0]));
+      var today=new Date(); today.setHours(0,0,0,0);
+      if(prazoDate<today){
+        prazoHtml='<td><span class="prazo-overdue">'+r.prazo+'</span></td>';
       } else {
-        prazoHtml = '<td style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
+        prazoHtml='<td style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
       }
     } else {
-      prazoHtml = '<td style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
+      prazoHtml='<td style="font-size:11px;font-weight:600">'+r.prazo+'</td>';
     }
     h+=prazoHtml;
     h+='<td class="tdm">'+r.iniMR+'</td>';
     h+='<td class="tdm">'+r.fimMR+'</td>';
     h+='<td style="font-size:11px;font-weight:600">'+r.aud+'</td>';
-    // Findings open
     var foHtml, ftHtml;
     if(r.fOpen===null){
       foHtml='<td><span class="find-na">—</span></td>';
@@ -477,50 +478,62 @@ function renderCert(){
     } else {
       foHtml='<td><span class="find-badge find-open">'+r.fOpen+'</span></td>';
     }
-    ftHtml = r.fTotal===null ? '<td><span class="find-na">—</span></td>' : '<td><span class="find-badge find-total">'+r.fTotal+'</span></td>';
+    ftHtml=r.fTotal===null?'<td><span class="find-na">—</span></td>':'<td><span class="find-badge find-total">'+r.fTotal+'</span></td>';
     h+=foHtml+ftHtml;
     var stageTips={
-  'Ativ':'Project activities and documentation being prepared.',
-  'Writ':'Monitoring Report is being drafted.',
-  'PCP':'Public Comment Period is open.',
-  'VVB':'Project is under audit by a Validation/Verification Body.',
-  '1R':'First round of the Verra PPR is ongoing.',
-  '2R':'Second round of the Verra PPR is ongoing.',
-  '3R':'Third round of the Verra PPR is ongoing.',
-  '✓':'VCUs have been approved and issued by Verra.'
-};
+      'Ativ':'Project activities and documentation being prepared.',
+      'Writ':'Monitoring Report is being drafted.',
+      'PCP':'Public Comment Period is open.',
+      'VVB':'Project is under audit by a Validation/Verification Body.',
+      '1R':'First round of the Verra PPR is ongoing.',
+      '2R':'Second round of the Verra PPR is ongoing.',
+      '3R':'Third round of the Verra PPR is ongoing.',
+      '✓':'VCUs have been approved and issued by Verra.'
+    };
     var stageLbl=STAGES[r.cur];
     var stageTip=stageTips[stageLbl]||'';
-    var isCheck = stageLbl==='✓';
-    var stageDisplay = isCheck
-      ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle"><circle cx="6" cy="6" r="5.5" stroke="#2BA84A" stroke-width="1.2"/><polyline points="2.5,6 5,8.5 9.5,3.5" stroke="#2BA84A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-      : stageLbl;
+    var isCheck=stageLbl==='✓';
+    var stageDisplay=isCheck
+      ?'<svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle"><circle cx="6" cy="6" r="5.5" stroke="#2BA84A" stroke-width="1.2"/><polyline points="2.5,6 5,8.5 9.5,3.5" stroke="#2BA84A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      :stageLbl;
     var stageEl=stageTip?'<span class="tip-wrap gstage">'+stageDisplay+'<span class="tip">'+stageTip+'</span></span>':'<span class="gstage">'+stageDisplay+'</span>';
-    var slots=STAGES.length; // 8
+    var slots=STAGES.length;
     var markerPct=((r.cur+0.5)/slots*100).toFixed(2);
     var fillPct=((r.cur/slots)*100).toFixed(2);
     h+='<td style="padding-right:0;"><div class="gantt"><div class="gtrack"><div class="gfill" style="width:'+fillPct+'%"></div><div class="gmark" style="left:'+markerPct+'%"></div></div></div></td>';
     h+='<td style="width:44px;min-width:44px;padding-left:8px;white-space:nowrap;">'+stageEl+'</td>';
     h+='</tr>';
     h+='<tr class="xrow" id="xr-'+i+'">';
-    h+='<td colspan="12"><div class="xinner">';
-    h+='<div><div class="xlbl">VCUs</div><div class="xval">'+r.vcu+'</div><div class="xsub">VCBx: '+r.vcbx+'</div></div>';
-    h+='<div><div class="xlbl">MR Start</div><div class="xval" style="font-size:12px">'+r.iniMR+'</div></div>';
-    h+='<div><div class="xlbl">MR End</div><div class="xval" style="font-size:12px">'+r.fimMR+'</div></div>';
-    h+='<div><div class="xlbl">Stage</div><div class="xval" style="color:var(--leaf)">'+STAGES[r.cur]+'</div><div class="xsub">'+r.cur+'/'+(STAGES.length-1)+'</div></div>';
-    h+='<div style="flex:1"><div class="xlbl">Progression</div><div class="stags">'+chips+'</div></div>';
-    h+='</div></td></tr>';
+    h+='<td colspan="12" style="text-align:left;padding:0;">';
+    if(r.findings!==undefined){
+      var fHtml='<div class="findings-wrap"><div class="findings-title">Open Findings</div>';
+      if(r.findings===null){
+        fHtml+='<span class="finding-tag ftag-open" style="font-size:10px;">PRR not yet available</span>';
+      } else if(r.findings.length===0){
+        fHtml+='<span class="finding-tag ftag-none">No open findings</span>';
+      } else {
+        fHtml+='<div class="findings-list">';
+        for(var fi=0;fi<r.findings.length;fi++){
+          var f=r.findings[fi];
+          var tag=f.crit?'<span class="finding-tag ftag-crit">Critical</span>':'<span class="finding-tag ftag-open">Open</span>';
+          fHtml+='<div class="finding-row"><span class="finding-num">#'+f.n+'</span>'+tag+'<span class="finding-topic">'+f.topic+'</span></div>';
+        }
+        fHtml+='</div>';
+      }
+      fHtml+='</div>';
+      h+=fHtml;
+    }
+    h+='</td></tr>';
   }
   tb.innerHTML=h;
 }
 
+/* ── FILTER ── */
+var af='all';
 function tx(i){
   var x=document.getElementById('xr-'+i);
   if(x) x.classList.toggle('open');
 }
-
-/* ── FILTER ── */
-var af='all';
 function setChip(el){
   af=el.getAttribute('data-f');
   var cs=document.querySelectorAll('.chip');
@@ -579,8 +592,9 @@ function renderVol(){
     var r=volRows[i];
     var cells=['<td class="vdash">—</td>','<td class="vdash">—</td>','<td class="vdash">—</td>','<td class="vdash">—</td>'];
     if(r.q>=0 && r.vcu>0){
-      var circleCheck='<span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);margin-right:4px;"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';cells[r.q]='<td><span class="vpill '+QC[r.q]+'" style="display:inline-flex;align-items:center;">'+( r.emitted?circleCheck:'')+r.vcu+'K</span></td>';
-    } else if(r.q>=0) {
+      var circleCheck='<span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);margin-right:4px;"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+      cells[r.q]='<td><span class="vpill '+QC[r.q]+'" style="display:inline-flex;align-items:center;">'+(r.emitted?circleCheck:'')+r.vcu+'K</span></td>';
+    } else if(r.q>=0){
       cells[r.q]='<td><span class="vzero"></span></td>';
     }
     h+='<tr>';
@@ -622,13 +636,6 @@ function initChart(){
 }
 
 /* ── INIT ── */
-document.addEventListener('mousemove',function(e){
-  var tips=document.querySelectorAll('.tip-wrap:hover .tip');
-  for(var i=0;i<tips.length;i++){
-    tips[i].style.left=(e.clientX+12)+'px';
-    tips[i].style.top=(e.clientY-30)+'px';
-  }
-});
 document.addEventListener('mousemove',function(e){
   var tips=document.querySelectorAll('.tip-wrap:hover .tip');
   for(var i=0;i<tips.length;i++){
