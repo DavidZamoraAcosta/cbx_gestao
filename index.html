@@ -192,6 +192,32 @@ table.vt td:first-child{text-align:left;padding-left:14px;}
 .vp{font-family:'Manrope',sans-serif;font-size:12px;font-weight:800;color:var(--forest);}
 .vm{font-size:9px;color:var(--text-muted);}
 .vpill{display:inline-flex;align-items:center;justify-content:center;padding:2px 7px;border-radius:5px;font-family:'Manrope',sans-serif;font-size:10.5px;font-weight:800;color:#fff;min-width:40px;}
+.vpill-wrap{position:relative;display:inline-flex;align-items:center;cursor:default;}
+.vol-pop{
+  display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#1a1a1a;color:#fff;font-size:10.5px;font-weight:700;
+  padding:4px 9px;border-radius:6px;white-space:nowrap;
+  pointer-events:none;z-index:9999;letter-spacing:.4px;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+.vol-pop::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#1a1a1a;
+}
+.vpill-wrap:hover .vol-pop{display:block;}
+.vol-pop{
+  display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);
+  background:#1a1a1a;color:#fff;font-size:10.5px;font-weight:700;
+  padding:4px 9px;border-radius:6px;white-space:nowrap;
+  pointer-events:none;z-index:9999;letter-spacing:.4px;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+.vol-pop::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#1a1a1a;
+}
+.vpill-wrap:hover .vol-pop{display:block;}
+
 .vpill.q1{background:#005C35;}.vpill.q2{background:#2BA84A;}.vpill.q3{background:#7B2D8B;}.vpill.q4{background:#888;}
 .vzero{display:inline-block;width:7px;height:7px;border-radius:50%;background:#d0e4d8;}
 .vdash{color:#ddd;font-size:12px;}
@@ -368,9 +394,9 @@ table.vt tfoot td.tq4{color:#888;}
           <tr>
             <td>Total</td>
             <td class="tq1">0</td>
-            <td class="tq2">691.112</td>
-            <td class="tq3">590.442</td>
-            <td class="tq4">68.778</td>
+            <td class="tq2">497.921</td>
+            <td class="tq3">301.834</td>
+            <td class="tq4">550.578</td>
           </tr>
         </tfoot>
       </table>
@@ -412,15 +438,15 @@ var certRows=[
 
 /* ── VOL DATA ── */
 var volRows=[
-  {proj:'Awa',       meto:'VM0007',    q:1, vcu:199},
-  {proj:'Hiwi MR2',  meto:'VM0015',    q:1, vcu:114, emitted:true},
-  {proj:'Ybyrá PD',  meto:'VM0015',    q:1, vcu:0},
-  {proj:'Ybyrá MR1', meto:'VM0015',    q:2, vcu:482},
-  {proj:'Oga',       meto:'VM0007/15', q:1, vcu:186},
-  {proj:'Tatuy',     meto:'VM0015',    q:1, vcu:89},
-  {proj:'Angelim',   meto:'VM0015',    q:1, vcu:104},
-  {proj:'Ahu',       meto:'VM0015',    q:1, vcu:109},
-  {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:69}
+  {proj:'Awa',       meto:'VM0007',    q:1, vcu:199, mes:'jun/26'},
+  {proj:'Hiwi MR2',  meto:'VM0015',    q:1, vcu:114, emitted:true, mes:'abr/26'},
+  {proj:'Ybyrá PD',  meto:'VM0015',    q:1, vcu:0,   mes:'mai/26'},
+  {proj:'Ybyrá MR1', meto:'VM0015',    q:3, vcu:482, mes:'out/26'},
+  {proj:'Oga',       meto:'VM0007/15', q:1, vcu:186, mes:'jun/26'},
+  {proj:'Ahu',       meto:'VM0015',    q:2, vcu:109, mes:'jul/26'},
+  {proj:'Angelim',   meto:'VM0015',    q:2, vcu:104, mes:'jul/26'},
+  {proj:'Tatuy',     meto:'VM0015',    q:2, vcu:89,  mes:'jul/26'},
+  {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:69,  mes:'nov/26'}
 ];
 
 var QC=['q1','q2','q3','q4'];
@@ -593,7 +619,8 @@ function renderVol(){
     var cells=['<td class="vdash">—</td>','<td class="vdash">—</td>','<td class="vdash">—</td>','<td class="vdash">—</td>'];
     if(r.q>=0 && r.vcu>0){
       var circleCheck='<span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1.5px solid rgba(255,255,255,.6);margin-right:4px;"><svg width="8" height="8" viewBox="0 0 10 10" fill="none"><polyline points="1.5,5 4,7.5 8.5,2" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-      cells[r.q]='<td><span class="vpill '+QC[r.q]+'" style="display:inline-flex;align-items:center;">'+(r.emitted?circleCheck:'')+r.vcu+'K</span></td>';
+      var popover=r.mes?'<span class="vol-pop">'+r.mes+'</span>':'';
+      cells[r.q]='<td><span class="vpill-wrap"><span class="vpill '+QC[r.q]+'" style="display:inline-flex;align-items:center;">'+(r.emitted?circleCheck:'')+r.vcu+'K</span>'+popover+'</span></td>';
     } else if(r.q>=0){
       cells[r.q]='<td><span class="vzero"></span></td>';
     }
@@ -616,7 +643,7 @@ function initChart(){
       labels:['Q1\njan–mar','Q2\nabr–jun','Q3\njul–set','Q4\nout–dez'],
       datasets:[{
         label:'VCUs (K)',
-        data:[0,691,590,69],
+        data:[0,499,302,551],
         backgroundColor:['rgba(0,92,53,.85)','rgba(43,168,74,.85)','rgba(123,45,139,.85)','rgba(150,150,150,.55)'],
         borderRadius:6,borderSkipped:false
       }]
