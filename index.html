@@ -235,6 +235,14 @@ table.vt tfoot td.tq4{color:#888;}
 .chs{font-size:9.5px;color:rgba(255,255,255,.4);}
 .chart-body{padding:12px;background:var(--forest);}
 
+/* TABS */
+.main-tabs{display:flex;gap:2px;padding:0 28px;background:var(--forest);border-top:1px solid rgba(255,255,255,.08);}
+.main-tab{padding:10px 18px;font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;
+  color:rgba(255,255,255,.45);cursor:pointer;border-bottom:2.5px solid transparent;
+  letter-spacing:.3px;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;}
+.main-tab:hover{color:rgba(255,255,255,.75);}
+.main-tab.on{color:#fff;border-bottom-color:var(--mint);}
+
 @media(max-width:1100px){.dash{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -247,14 +255,21 @@ table.vt tfoot td.tq4{color:#888;}
       <div class="bdot"></div>
       <span class="bname">Carbonext</span>
       <span class="bpipe">|</span>
-      <span class="bsub">Pipeline Verra</span>
+      <span class="bsub" id="nav-sub">Pipeline Verra</span>
     </div>
     <div class="nav-right">
       <span class="sla-badge">⚠ Days over SLA</span>
       <span class="upd" id="upd"></span>
     </div>
   </div>
+  <div class="main-tabs">
+    <button class="main-tab on" data-tab="pipeline" onclick="switchTab(this)">📋 Pipeline</button>
+    <button class="main-tab" data-tab="portfolio" onclick="switchTab(this)">📊 Portfolio Overview</button>
+  </div>
 </nav>
+
+<!-- TAB: PIPELINE -->
+<div id="tab-pipeline">
 
 <!-- HEADER -->
 <div class="hdr">
@@ -423,7 +438,79 @@ table.vt tfoot td.tq4{color:#888;}
   </div>
 </div>
 
+</div><!-- end tab-pipeline -->
+
+<!-- TAB: PORTFOLIO OVERVIEW -->
+<div id="tab-portfolio" style="display:none;">
+
+<!-- PORTFOLIO OVERVIEW SECTION -->
+<style>
+.ov-subtab{
+  background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);
+  color:rgba(255,255,255,.65);font-family:'Manrope',sans-serif;font-size:9.5px;
+  font-weight:800;letter-spacing:.8px;padding:3px 12px;border-radius:20px;
+  cursor:pointer;transition:all .15s;text-transform:uppercase;
+}
+.ov-subtab.on{background:#fff;color:var(--forest);border-color:#fff;}
+.ov-subtab:hover:not(.on){background:rgba(255,255,255,.2);}
+.ov-group{margin-bottom:24px;}
+.ov-group-title{font-family:'Manrope',sans-serif;font-size:9px;font-weight:800;
+  letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);
+  margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.ov-group-title::before{content:'';display:block;width:3px;height:11px;background:var(--leaf);border-radius:2px;}
+table.ovt2{width:100%;border-collapse:collapse;font-size:11px;white-space:nowrap;}
+table.ovt2 thead th{
+  background:#f2f8f4;padding:6px 10px;font-size:9px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;color:var(--text-mid);border-bottom:1.5px solid var(--border);
+  text-align:right;
+}
+table.ovt2 thead th:first-child{text-align:left;}
+table.ovt2 tbody td{
+  padding:7px 10px;border-bottom:1px solid #ecf5ef;text-align:right;
+  font-family:'Manrope',sans-serif;font-size:11px;color:var(--text);
+}
+table.ovt2 tbody td:first-child{text-align:left;font-weight:700;color:var(--forest);}
+table.ovt2 tbody tr:hover{background:#f5fbf7;}
+table.ovt2 tbody tr:last-child td{border-bottom:none;}
+table.ovt2 tfoot td{
+  padding:7px 10px;text-align:right;font-family:'Manrope',sans-serif;
+  font-size:11.5px;font-weight:800;background:#f2f8f4;
+  border-top:2px solid var(--border);color:var(--forest);
+}
+table.ovt2 tfoot td:first-child{text-align:left;font-size:9.5px;font-weight:700;
+  letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);}
+.ov-zero{color:#ccc;}
+.ov-cbx{color:var(--purple);font-weight:700;}
+</style>
+
+<div style="max-width:1600px;margin:0 auto;padding:0 20px 48px;">
+  <div class="panel" style="overflow:visible;">
+    <div class="sband cert" style="justify-content:space-between;">
+      <span class="sl">Portfolio Overview</span>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <button class="ov-subtab on" data-v="mr" onclick="setOvSub(this)">By MR</button>
+        <button class="ov-subtab" data-v="year" onclick="setOvSub(this)">By Year</button>
+      </div>
+    </div>
+    <div id="ov-content" style="overflow-x:auto;padding:16px 16px 20px;min-height:80px;"></div>
+  </div>
+</div>
+
+</div><!-- end tab-portfolio -->
+
 <script>
+/* ── TABS ── */
+function switchTab(el){
+  var tab=el.getAttribute('data-tab');
+  document.querySelectorAll('.main-tab').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('tab-pipeline').style.display=tab==='pipeline'?'':'none';
+  document.getElementById('tab-portfolio').style.display=tab==='portfolio'?'':'none';
+  var sub=document.getElementById('nav-sub');
+  if(sub) sub.textContent=tab==='pipeline'?'Pipeline Verra':'Portfolio Overview';
+  if(tab==='portfolio') renderOv();
+}
+
 var STAGES=['Ativ','Writ','PCP','VVB','1R','2R','3R','✓'];
 
 /* ── CERT DATA ── */
@@ -715,7 +802,235 @@ function initChart(){
   });
 }
 
-/* ── INIT ── */
+/* ── PORTFOLIO OVERVIEW ── */
+var ovSub='mr';
+
+var SUMMARY_MR={
+  hdr:['Project','MR1','MR2','MR3','MR4','MR5','MR6','MR7','MR8','MR9','MR10'],
+  vol:[
+    ['Hiwi',    151373,113560,68778,35273,37265,39693,40830,38636,42614,43951],
+    ['Ahu',     108643,8089,22318,21970,21460,17480,16629,16749,15302,11709],
+    ['Angelim', 103848,109858,61009,40334,38661,58544,31422,60463,50760,49211],
+    ['Awa',     198854,95908,48175,50556,52691,54252,55472,55779,55461,55684],
+    ['Oga',     183349,72071,76873,76570,75884,71819,71580,68239,2424,4153],
+    ['Tatuy',   70582,53216,68935,74781,70734,74814,69198,68875,66256,64736],
+    ['Ybyrá',   481799,95084,58262,57117,54713,56230,55256,48894,52875,50634],
+    ['Portfolio',1298449,547787,404350,356602,351409,372832,340388,357634,285691,280078]
+  ],
+  volcbx:[
+    ['Hiwi',    68118,51102,30950,15873,16769,17862,18374,17386,19176,19778],
+    ['Ahu',     32593,2427,6695,6591,6438,5244,4989,5025,4590,3513],
+    ['Angelim', 30116,31859,17693,11697,11212,16978,9113,17534,14720,14271],
+    ['Awa',     49714,23977,12044,12639,13173,13563,13868,13945,13865,13921],
+    ['Oga',     55005,21621,23062,22971,22765,21546,21474,20472,727,1246],
+    ['Tatuy',   16940,12772,16544,17947,16976,17955,16607,16530,15901,15537],
+    ['Ybyrá',   144540,28525,17479,17135,16414,16869,16577,14668,15863,15190],
+    ['Portfolio',397025,172283,124467,104854,103747,110017,101001,105559,84843,83456]
+  ],
+  period:[
+    ['Hiwi',    2.6,2.0,1.3,3.0,3.0,3.0,3.0,3.0,3.0,3.0],
+    ['Ahu',     2.6,5.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0],
+    ['Angelim', 3.3,2.9,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0],
+    ['Awa',     1.4,3.0,1.3,1.3,1.3,1.3,1.3,1.3,1.3,1.3],
+    ['Oga',     2.5,2.9,2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0],
+    ['Tatuy',   2.3,2.8,3.0,3.0,3.0,3.0,3.0,3.0,3.0,3.0],
+    ['Ybyrá',   3.0,1.7,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0],
+    ['Portfolio',null,null,null,null,null,null,null,null,null,null]
+  ],
+  area:[
+    ['Hiwi',    20336,20336,20336,20336,20336,20336,20336,20336,20336,20336],
+    ['Ahu',     31712,31712,31712,31712,31712,31712,31712,31712,31712,31712],
+    ['Angelim', 21261,21261,21261,21261,21261,21261,21261,21261,21261,21261],
+    ['Awa',     66443,66443,66443,66443,66443,66443,66443,66443,66443,66443],
+    ['Oga',     8349,8349,8349,8349,8349,8349,8349,8349,8349,8349],
+    ['Tatuy',   22724,22724,22724,22724,22724,22724,22724,22724,22724,22724],
+    ['Ybyrá',   69721,69721,69721,69721,69721,69721,69721,69721,69721,69721],
+    ['Portfolio',240547,240547,240547,240547,240547,240547,240547,240547,240547,240547]
+  ],
+  prod:[
+    ['Hiwi',    2.8,2.8,2.7,0.6,0.6,0.7,0.7,0.6,0.7,0.7],
+    ['Ahu',     1.3,0.1,0.4,0.3,0.3,0.3,0.3,0.3,0.2,0.2],
+    ['Angelim', 1.5,1.8,1.4,0.9,0.9,1.4,0.7,1.4,1.2,1.2],
+    ['Awa',     2.2,0.5,0.6,0.6,0.6,0.6,0.6,0.6,0.6,0.6],
+    ['Oga',     8.9,3.0,4.6,4.6,4.5,4.3,4.3,4.1,0.1,0.2],
+    ['Tatuy',   1.4,0.8,1.0,1.1,1.0,1.1,1.1,1.0,1.0,0.9],
+    ['Ybyrá',   2.3,0.8,0.8,0.8,0.8,0.8,0.8,0.7,0.8,0.7],
+    ['Portfolio',2.2,1.0,1.1,0.8,0.8,0.9,0.8,0.8,0.7,0.7]
+  ],
+  // VM0015 = cols where methodology is VM0015 per project (MR1 always VM0015; then switch per project)
+  meth:[
+    ['Hiwi',    'VM0015','VM0015','VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Ahu',     'VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Angelim', 'VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Awa',     'VM0007','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Oga',     'VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Tatuy',   'VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Ybyrá',   'VM0015','VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Portfolio',null,null,null,null,null,null,null,null,null,null]
+  ]
+};
+
+var SUMMARY_YEAR={
+  hdr:['Project',2026,2027,2028,2029,2030,2031,2032,2033,2034,2035],
+  vol:[
+    ['Hiwi',    182338,0,0,0,35273,0,37265,0,21970,0],
+    ['Ahu',     108643,0,0,0,8089,0,22318,0,21970,0],
+    ['Angelim', 103848,0,109858,0,61009,0,40334,0,38661,0],
+    ['Awa',     198854,0,95908,48175,50556,0,52691,54252,55472,0],
+    ['Oga',     183349,0,72071,0,76873,0,76570,0,75884,0],
+    ['Tatuy',   70582,0,53216,0,0,68935,0,0,74781,0],
+    ['Ybyrá',   481799,0,95084,58262,57117,54713,56230,55256,48894,52875],
+    ['Portfolio',1329413,0,426138,106438,288917,123647,248144,146773,315662,52875]
+  ],
+  volcbx:[
+    ['Hiwi',    51102,0,0,0,15873,0,16769,0,6591,0],
+    ['Ahu',     32593,0,0,0,2427,0,6695,0,6591,0],
+    ['Angelim', 33960,0,34712,0,17769,0,11697,0,11212,0],
+    ['Awa',     49714,0,24238,12044,12633,0,13173,13569,13862,0],
+    ['Oga',     55652,0,21621,0,23062,0,22971,0,22765,0],
+    ['Tatuy',   0,21442,12772,0,0,16544,0,0,17947,0],
+    ['Ybyrá',   0,250373,0,17641,17234,16644,16618,16769,15357,15177],
+    ['Portfolio',190428,335358,93344,29685,104004,33188,71154,47107,87735,15177]
+  ],
+  mr:[
+    ['Hiwi',    'MR2;MR3','-','-','-','MR4','-','MR5','-','MR4','-'],
+    ['Ahu',     'PD+MR1','-','-','-','MR2','-','MR3','-','MR4','-'],
+    ['Angelim', 'PD+MR1','-','MR2','-','MR3','-','MR4','-','MR5','-'],
+    ['Awa',     'PD+MR1','-','MR2','MR3','MR4','-','MR5','MR6','MR7','-'],
+    ['Oga',     'PD+MR1','-','MR2','-','MR3','-','MR4','-','MR5','-'],
+    ['Tatuy',   'PD+MR1','-','MR2','-','-','MR3','-','-','MR4','-'],
+    ['Ybyrá',   'MR1;PD','-','MR2','MR3','MR4','MR5','MR6','MR7','MR8','MR9'],
+  ],
+  meth:[
+    ['Hiwi',    '-','-','-','-','VM0048','-','VM0048','-','VM0048','-'],
+    ['Ahu',     'VM0015','-','-','-','VM0048','-','VM0048','-','VM0048','-'],
+    ['Angelim', 'VM0015','-','VM0048','-','VM0048','-','VM0048','-','VM0048','-'],
+    ['Awa',     'VM0015','-','VM0048','VM0048','VM0048','-','VM0048','VM0048','VM0048','-'],
+    ['Oga',     'VM0015','-','VM0048','-','VM0048','-','VM0048','-','VM0048','-'],
+    ['Tatuy',   'VM0015','-','VM0048','-','-','VM0048','-','-','VM0048','-'],
+    ['Ybyrá',   '-','VM0015','-','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+  ],
+  volmeth:[
+    ['VM0015',  665276,0,0,0,0,0,0,0,0,0],
+    ['VM0048',  0,0,426138,106438,288917,123647,248144,146773,315662,52875]
+  ]
+};
+
+function nfOv(v){if(v===null||v===undefined||v===0)return '<span class="ov-zero">—</span>';return Math.round(v).toLocaleString('en-US');}
+function nfDec(v){if(!v||v===0)return '<span class="ov-zero">—</span>';return v.toFixed(1);}
+
+// Methodology color per col (By MR view): index 1..10 = MR1..MR10
+var MR_METH_COLORS={
+  'VM0015':'rgba(43,168,74,.13)',
+  'VM0007':'rgba(43,168,74,.13)',
+  'VM0048':'rgba(123,45,139,.10)',
+  null:'transparent'
+};
+var MR_METH_TEXT={
+  'VM0015':'#1a6b44',
+  'VM0007':'#1a6b44',
+  'VM0048':'#7B2D8B',
+  null:'inherit'
+};
+
+function methCellStyle(proj,colIdx){
+  // colIdx 0=Project, 1=MR1...10=MR10
+  if(colIdx===0) return '';
+  var projRow=SUMMARY_MR.meth.find(function(r){return r[0]===proj;});
+  if(!projRow) return '';
+  var m=projRow[colIdx]; // colIdx 1 = MR1
+  var bg=MR_METH_COLORS[m]||'transparent';
+  var color=MR_METH_TEXT[m]||'inherit';
+  return 'background:'+bg+';color:'+color+';';
+}
+
+function renderOv(){
+  var el=document.getElementById('ov-content');
+  if(!el) return;
+  var h='';
+
+  if(ovSub==='mr'){
+    var cols=SUMMARY_MR.hdr;
+
+    // Legend
+    h+='<div style="display:flex;gap:14px;align-items:center;margin-bottom:16px;flex-wrap:wrap;">';
+    h+='<span style="font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);">Methodology:</span>';
+    h+='<span style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#1a6b44;"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:rgba(43,168,74,.2);border:1px solid rgba(43,168,74,.3);"></span>VM0015 / VM0007</span>';
+    h+='<span style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#7B2D8B;"><span style="display:inline-block;width:13px;height:13px;border-radius:3px;background:rgba(123,45,139,.15);border:1px solid rgba(123,45,139,.25);"></span>VM0048</span>';
+    h+='<span style="font-size:9.5px;color:var(--text-muted);margin-left:4px;">— cell background indicates the methodology used in each MR</span>';
+    h+='</div>';
+
+    function makeTable(title, rows, lastIsTotal, fmtFn){
+      var out='<div class="ov-group"><div class="ov-group-title">'+title+'</div>';
+      out+='<table class="ovt2"><thead><tr>';
+      for(var i=0;i<cols.length;i++) out+='<th>'+(i===0?'Project':cols[i])+'</th>';
+      out+='</tr></thead>';
+      if(lastIsTotal){
+        out+='<tbody>';
+        for(var r=0;r<rows.length-1;r++){
+          var row=rows[r]; out+='<tr>';
+          for(var c=0;c<row.length;c++){
+            var st=methCellStyle(row[0],c);
+            out+='<td style="'+st+'">'+(c===0?'<b>'+row[c]+'</b>':fmtFn(row[c]))+'</td>';
+          }
+          out+='</tr>';
+        }
+        out+='</tbody><tfoot><tr>';
+        var tot=rows[rows.length-1];
+        for(var c=0;c<tot.length;c++) out+='<td>'+(c===0?'Total':fmtFn(tot[c]))+'</td>';
+        out+='</tr></tfoot>';
+      }
+      out+='</table></div>';
+      return out;
+    }
+
+    h+=makeTable('Volume (VCU) — by Monitoring Report', SUMMARY_MR.vol, true, nfOv);
+    h+=makeTable('CBX Volume (VCU) — by Monitoring Report', SUMMARY_MR.volcbx, true, function(v){
+      if(!v||v===0) return '<span class="ov-zero">—</span>';
+      return '<span class="ov-cbx">'+Math.round(v).toLocaleString('en-US')+'</span>';
+    });
+
+  } else {
+    var cols=SUMMARY_YEAR.hdr;
+
+    function makeYearTable(title, rows, lastIsTotal, fmtFn){
+      var out='<div class="ov-group"><div class="ov-group-title">'+title+'</div>';
+      out+='<table class="ovt2"><thead><tr>';
+      for(var i=0;i<cols.length;i++) out+='<th>'+(i===0?'Project':cols[i])+'</th>';
+      out+='</tr></thead>';
+      if(lastIsTotal){
+        out+='<tbody>';
+        for(var r=0;r<rows.length-1;r++){
+          var row=rows[r]; out+='<tr>';
+          for(var c=0;c<row.length;c++) out+='<td>'+(c===0?'<b>'+row[c]+'</b>':fmtFn(row[c]))+'</td>';
+          out+='</tr>';
+        }
+        out+='</tbody><tfoot><tr>';
+        var tot=rows[rows.length-1];
+        for(var c=0;c<tot.length;c++) out+='<td>'+(c===0?'Total':fmtFn(tot[c]))+'</td>';
+        out+='</tr></tfoot>';
+      }
+      out+='</table></div>';
+      return out;
+    }
+
+    h+=makeYearTable('Volume (VCU) — by Year', SUMMARY_YEAR.vol, true, nfOv);
+    h+=makeYearTable('CBX Volume (VCU) — by Year', SUMMARY_YEAR.volcbx, true, function(v){
+      if(!v||v===0) return '<span class="ov-zero">—</span>';
+      return '<span class="ov-cbx">'+Math.round(v).toLocaleString('en-US')+'</span>';
+    });
+  }
+
+  el.innerHTML=h;
+}
+
+function setOvSub(el){
+  ovSub=el.getAttribute('data-v');
+  document.querySelectorAll('.ov-subtab').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+  renderOv();
+}
+
 document.addEventListener('mousemove',function(e){
   var tips=document.querySelectorAll('.tip-wrap:hover .tip');
   for(var i=0;i<tips.length;i++){
@@ -729,7 +1044,14 @@ window.addEventListener('DOMContentLoaded',function(){
   renderCert();
   renderVol();
   initChart();
+  renderOv();
 });
+// Fallback: run immediately if DOM already ready
+if(document.readyState==='complete'||document.readyState==='interactive'){
+  setTimeout(function(){
+    renderCert();renderVol();initChart();renderOv();
+  },0);
+}
 </script>
 </body>
 </html>
