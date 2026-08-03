@@ -481,6 +481,26 @@ table.ovt2 tfoot td:first-child{text-align:left;font-size:9.5px;font-weight:700;
   letter-spacing:.5px;text-transform:uppercase;color:var(--text-muted);}
 .ov-zero{color:#ccc;}
 .ov-cbx{color:var(--purple);font-weight:700;}
+
+/* Overview cell popovers */
+.ov-cell-wrap{position:relative;display:inline-block;cursor:help;}
+.ov-pop{
+  display:none;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);
+  background:#1a1a1a;color:#fff;font-family:'Inter',sans-serif;
+  font-size:10px;font-weight:600;letter-spacing:.3px;
+  padding:5px 10px;border-radius:6px;white-space:nowrap;
+  pointer-events:none;z-index:9999;
+  box-shadow:0 3px 12px rgba(0,0,0,.35);
+}
+.ov-pop::after{
+  content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);
+  border:5px solid transparent;border-top-color:#1a1a1a;
+}
+.ov-pop-lg{font-size:9.5px;line-height:1.6;text-align:left;}
+.ov-cell-wrap:hover .ov-pop{display:block;}
+/* Right-edge columns flip left */
+td:nth-last-child(-n+2) .ov-pop{left:auto;right:0;transform:none;}
+td:nth-last-child(-n+2) .ov-pop::after{left:auto;right:12px;transform:none;}
 </style>
 
 <div style="max-width:1600px;margin:0 auto;padding:0 20px 48px;">
@@ -933,6 +953,30 @@ var MR_METH_TEXT={
   null:'inherit'
 };
 
+// MR → year mapping per project (for By MR popover)
+var MR_YEAR={
+  'Hiwi':    {MR1:'2024',MR2:'2026',MR3:'2026',MR4:'2030',MR5:'2033',MR6:'2036',MR7:'2039',MR8:'2042',MR9:'2045',MR10:'2048'},
+  'Ahu':     {MR1:'2026',MR2:'2030',MR3:'2032',MR4:'2034',MR5:'2036',MR6:'2038',MR7:'2040',MR8:'2042',MR9:'2044',MR10:'2046'},
+  'Angelim': {MR1:'2026',MR2:'2028',MR3:'2030',MR4:'2032',MR5:'2034',MR6:'2036',MR7:'2038',MR8:'2040',MR9:'2042',MR10:'2044'},
+  'Awa':     {MR1:'2026',MR2:'2028',MR3:'2029',MR4:'2030',MR5:'2032',MR6:'2033',MR7:'2034',MR8:'2036',MR9:'2037',MR10:'2038'},
+  'Oga':     {MR1:'2026',MR2:'2028',MR3:'2030',MR4:'2032',MR5:'2034',MR6:'2036',MR7:'2038',MR8:'2040',MR9:'2042',MR10:'2044'},
+  'Tatuy':   {MR1:'2026',MR2:'2028',MR3:'2031',MR4:'2034',MR5:'2037',MR6:'2040',MR7:'2043',MR8:'2046',MR9:'2049',MR10:'2052'},
+  'Ybyrá':   {MR1:'2026',MR2:'2028',MR3:'2029',MR4:'2030',MR5:'2031',MR6:'2032',MR7:'2033',MR8:'2034',MR9:'2035',MR10:'2036'}
+};
+
+// Year → MRs mapping (for By Year popover) — derived from SUMMARY_YEAR.mr
+function getYearMRs(year){
+  var out=[];
+  for(var r=0;r<SUMMARY_YEAR.mr.length;r++){
+    var row=SUMMARY_YEAR.mr[r];
+    var idx=SUMMARY_YEAR.hdr.indexOf(year);
+    if(idx>0 && row[idx] && row[idx]!=='-'){
+      out.push(row[0]+': '+row[idx]);
+    }
+  }
+  return out;
+}
+
 function methCellStyle(proj,colIdx){
   // colIdx 0=Project, 1=MR1...10=MR10
   if(colIdx===0) return '';
@@ -971,7 +1015,20 @@ function renderOv(){
           var row=rows[r]; out+='<tr>';
           for(var c=0;c<row.length;c++){
             var st=methCellStyle(row[0],c);
-            out+='<td style="'+st+'">'+(c===0?'<b>'+row[c]+'</b>':fmtFn(row[c]))+'</td>';
+            if(c===0){
+              out+='<td style="'+st+'"><b>'+row[c]+'</b></td>';
+            } else {
+              var mrLabel=cols[c];
+              var yr=(MR_YEAR[row[0]]||{})[mrLabel];
+              var methRow=SUMMARY_MR.meth.find(function(m){return m[0]===row[0];});
+              var meth=methRow?methRow[c]:'';
+              var popTxt=yr?(mrLabel+' · '+yr+(meth?' · '+meth:'')):'';
+              if(popTxt && row[c]){
+                out+='<td style="'+st+'"><span class="ov-cell-wrap">'+fmtFn(row[c])+'<span class="ov-pop">'+popTxt+'</span></span></td>';
+              } else {
+                out+='<td style="'+st+'">'+fmtFn(row[c])+'</td>';
+              }
+            }
           }
           out+='</tr>';
         }
@@ -1002,12 +1059,40 @@ function renderOv(){
         out+='<tbody>';
         for(var r=0;r<rows.length-1;r++){
           var row=rows[r]; out+='<tr>';
-          for(var c=0;c<row.length;c++) out+='<td>'+(c===0?'<b>'+row[c]+'</b>':fmtFn(row[c]))+'</td>';
+          for(var c=0;c<row.length;c++){
+            if(c===0){
+              out+='<td><b>'+row[c]+'</b></td>';
+            } else {
+              var mrRow=SUMMARY_YEAR.mr.find(function(m){return m[0]===row[0];});
+              var mrVal=mrRow?mrRow[c]:'';
+              var methRow=SUMMARY_YEAR.meth.find(function(m){return m[0]===row[0];});
+              var methVal=methRow?methRow[c]:'';
+              var popTxt='';
+              if(mrVal && mrVal!=='-'){
+                popTxt=cols[c]+' · '+mrVal+(methVal&&methVal!=='-'?' · '+methVal:'');
+              }
+              if(popTxt && row[c]){
+                out+='<td><span class="ov-cell-wrap">'+fmtFn(row[c])+'<span class="ov-pop">'+popTxt+'</span></span></td>';
+              } else {
+                out+='<td>'+fmtFn(row[c])+'</td>';
+              }
+            }
+          }
           out+='</tr>';
         }
         out+='</tbody><tfoot><tr>';
         var tot=rows[rows.length-1];
-        for(var c=0;c<tot.length;c++) out+='<td>'+(c===0?'Total':fmtFn(tot[c]))+'</td>';
+        for(var c=0;c<tot.length;c++){
+          if(c===0){ out+='<td>Total</td>'; }
+          else {
+            var yrMRs=getYearMRs(cols[c]);
+            if(yrMRs.length && tot[c]){
+              out+='<td><span class="ov-cell-wrap">'+fmtFn(tot[c])+'<span class="ov-pop ov-pop-lg">'+yrMRs.join('<br>')+'</span></span></td>';
+            } else {
+              out+='<td>'+fmtFn(tot[c])+'</td>';
+            }
+          }
+        }
         out+='</tr></tfoot>';
       }
       out+='</table></div>';
