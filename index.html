@@ -281,7 +281,7 @@ table.vt tfoot td.tq4{color:#888;}
     </div>
     <div class="kpis">
       <div class="kpi"><div class="kv" style="color:var(--mint)">9</div><div class="kl">In Certification</div></div>
-      <div class="kpi"><div class="kv" style="color:var(--mint)">1.363K</div><div class="kl">Projected VCUs</div></div>
+      <div class="kpi"><div class="kv" style="color:var(--mint)">1.247K</div><div class="kl">Projected VCUs</div></div>
       <div class="kpi"><div class="kv" style="color:#ff8a80">1</div><div class="kl">Over SLA</div></div>
       <div class="kpi"><div class="kv" style="color:rgba(255,255,255,.45)">5</div><div class="kl">On Hold</div></div>
     </div>
@@ -413,13 +413,13 @@ table.vt tfoot td.tq4{color:#888;}
             <td>Total</td>
             <td class="tq1" id="ft0">0</td>
             <td class="tq2" id="ft1">113.560</td>
-            <td class="tq3" id="ft2">665.276</td>
-            <td class="tq4" id="ft3">550.578</td>
+            <td class="tq3" id="ft2">605.276</td>
+            <td class="tq4" id="ft3">529.058</td>
           </tr>
         </tfoot>
       </table>
       <div class="grand">
-        <div><div class="grand-lbl" id="grand-lbl">Portfolio Total</div><div class="grand-val" id="grand-val">1.329.413 VCUs</div></div>
+        <div><div class="grand-lbl" id="grand-lbl">Portfolio Total</div><div class="grand-val" id="grand-val">1.247.894 VCUs</div></div>
         <div style="text-align:right"><div class="grand-lbl">Projetos</div><div class="grand-val" style="color:var(--mint)">8</div></div>
       </div>
     </div>
@@ -517,26 +517,26 @@ var STAGES=['Ativ','Writ','PCP','VVB','1R','2R','3R','✓'];
 var certRows=[
   {proj:'Hiwi',    est:'MR2',    status:'Verified 🎉',                who:'verra', dias:-1,  prazo:'—',        iniMR:'abr/22', fimMR:'abr/24', aud:'ESPL',     vcu:'114K', vcbx:'51K',  cur:7, fOpen:0,    fTotal:24,   findings:[]},
   {proj:'Ybyrá',   est:'PD',     status:'Registered 🎉',              who:'verra', dias:-1,  prazo:'—',        iniMR:'jan/22', fimMR:'nov/24', aud:'RUBY',     vcu:'0',    vcbx:'0',    cur:7, fOpen:0,    fTotal:41,   findings:[]},
-  {proj:'Awa',     est:'PD+MR1', status:'Awaiting Verra review',       who:'verra', dias:13,  prazo:'—',        iniMR:'abr/22', fimMR:'ago/23', aud:'AENOR',    vcu:'199K', vcbx:'50K',  cur:6, fOpen:1,    fTotal:29,   findings:[{n:8,topic:"RRD delineation — deforestation agents and similarity criteria not fully demonstrated",crit:true}]},
-  {proj:'Oga',     est:'PD+MR1', status:'Awaiting Verra review',       who:'verra', dias:16,  prazo:'31/07/26', iniMR:'jul/21', fimMR:'dez/23', aud:'ECOLANCE', vcu:'183K', vcbx:'55K',  cur:6, fOpen:2,    fTotal:39,   findings:[{n:23,topic:"APD biomass burning — PP has not provided evidence that 100% of aboveground biomass is burnt; commercial timber extraction contradicts Aburn,I,t = 1",crit:true},{n:24,topic:"Forest areas within landowner properties excluded from project boundaries without justification — must be included in PA or leakage belt",crit:true}]},
-  {proj:'Tatuy',   est:'PD+MR1', status:'Under VVB review (3R)',       who:'vvb',   dias:16,  prazo:'29/07/26', iniMR:'jul/21', fimMR:'out/23', aud:'RUBY',     vcu:'71K',  vcbx:'17K',  cur:6, fOpen:5,    fTotal:33,   findings:[{n:8,topic:"Baseline model does not differentiate Legal Reserve vs non-LR deforestation risk — authorized deforestation not excluded from baseline",crit:true},{n:11,topic:"Deforestation rate (RBSLRR) not calculated per Puyravaud 2003 formula — first year of HRP excluded from calculations",crit:true},{n:12,topic:"Factor maps for distance to edge, communities and slope missing — model selection demonstration incomplete and inconsistent",crit:true},{n:17,topic:"CCB Benefits Assessment Period starts July 2021 but community/biodiversity activities only initiated in 2023",crit:true},{n:7,topic:"VVB has not confirmed that activities implemented during monitoring period resulted in emission reductions above BAU scenario",crit:false}]},
-  {proj:'Ahu',     est:'PD+MR1', status:'Awaiting 3R Verra',           who:'verra', dias:54,  prazo:'30/06/26', iniMR:'abr/21', fimMR:'nov/23', aud:'AENOR',    vcu:'109K', vcbx:'33K',  cur:6, fOpen:6,    fTotal:28,   findings:[{n:8,topic:"Baseline scenario not aligned with grouped projects requirements — LR/non-LR differentiation insufficient",crit:true},{n:13,topic:"Baseline deforestation rate (RBSLRR) — Puyravaud formula misapplied and decreasing trend not justified",crit:true},{n:14,topic:"Location of future deforestation — selected model inconsistency and factor map for distance to edge missing",crit:true},{n:28,topic:"Project boundary justification — LR deficit in CAR and forested areas excluded without full accounting",crit:false},{n:21,topic:"Expected community impacts — Section 4.1.1 MR change-in-well-being column insufficient",crit:false}]},
-  {proj:'Angelim', est:'PD+MR1', status:'Awaiting 3R Verra',           who:'verra', dias:13,  prazo:'31/07/26', iniMR:'set/20', fimMR:'dez/23', aud:'RUBY',     vcu:'104K', vcbx:'30K',  cur:6, fOpen:5,    fTotal:27,   findings:[{n:11,topic:"Baseline model LR/non-LR differentiation insufficient — vegetation surplus deforestation not addressed",crit:true},{n:17,topic:"Baseline deforestation rate (RBSLRR) calculation not demonstrated — Puyravaud formula required",crit:true},{n:9,topic:"Implementation status of project activities unclear — outputs and indicators for monitoring period missing",crit:true},{n:21,topic:"Stakeholder engagement occurred after project start — effective prior consultation not demonstrated",crit:false},{n:22,topic:"Grievance Redress Procedure — traditional conflict resolution method and neutral third party not specified",crit:false}]},
-  {proj:'Hiwi',    est:'MR3',    status:'Completeness Check Verra',    who:'verra', dias:1,   prazo:'31/07/26', iniMR:'abr/24', fimMR:'jul/25', aud:'ECOLANCE', vcu:'69K',  vcbx:'31K',  cur:4, fOpen:null, fTotal:null, findings:null},
-  {proj:'Ybyrá',   est:'MR1',    status:'Adjusting documents',          who:'cbx',   dias:13,  prazo:'31/08/26', iniMR:'jan/22', fimMR:'jan/25', aud:'RUBY',     vcu:'482K', vcbx:'145K', cur:3, fOpen:null, fTotal:null, findings:null}
+  {proj:'Awa',     est:'PD+MR1', status:'Awaiting Verra review',       who:'verra', dias:21,  prazo:'—',        iniMR:'abr/22', fimMR:'ago/23', aud:'AENOR',    vcu:'139K', vcbx:'35K',  cur:6, fOpen:1,    fTotal:29,   findings:[{n:8,topic:"RRD delineation — deforestation agents and similarity criteria not fully demonstrated",crit:true}]},
+  {proj:'Oga',     est:'PD+MR1', status:'Awaiting Verra review',       who:'verra', dias:24,  prazo:'31/07/26', iniMR:'jul/21', fimMR:'dez/23', aud:'ECOLANCE', vcu:'183K', vcbx:'55K',  cur:6, fOpen:2,    fTotal:39,   findings:[{n:23,topic:"APD biomass burning — PP has not provided evidence that 100% of aboveground biomass is burnt; commercial timber extraction contradicts Aburn,I,t = 1",crit:true},{n:24,topic:"Forest areas within landowner properties excluded from project boundaries without justification — must be included in PA or leakage belt",crit:true}]},
+  {proj:'Tatuy',   est:'PD+MR1', status:'Under VVB review (3R)',       who:'vvb',   dias:24,  prazo:'17/08/26', iniMR:'jul/21', fimMR:'out/23', aud:'RUBY',     vcu:'71K',  vcbx:'17K',  cur:6, fOpen:5,    fTotal:33,   findings:[{n:8,topic:"Baseline model does not differentiate Legal Reserve vs non-LR deforestation risk — authorized deforestation not excluded from baseline",crit:true},{n:11,topic:"Deforestation rate (RBSLRR) not calculated per Puyravaud 2003 formula — first year of HRP excluded from calculations",crit:true},{n:12,topic:"Factor maps for distance to edge, communities and slope missing — model selection demonstration incomplete and inconsistent",crit:true},{n:17,topic:"CCB Benefits Assessment Period starts July 2021 but community/biodiversity activities only initiated in 2023",crit:true},{n:7,topic:"VVB has not confirmed that activities implemented during monitoring period resulted in emission reductions above BAU scenario",crit:false}]},
+  {proj:'Ahu',     est:'PD+MR1', status:'Awaiting 3R Verra',           who:'verra', dias:62,  prazo:'30/06/26', iniMR:'abr/21', fimMR:'nov/23', aud:'AENOR',    vcu:'109K', vcbx:'33K',  cur:6, fOpen:6,    fTotal:28,   findings:[{n:8,topic:"Baseline scenario not aligned with grouped projects requirements — LR/non-LR differentiation insufficient",crit:true},{n:13,topic:"Baseline deforestation rate (RBSLRR) — Puyravaud formula misapplied and decreasing trend not justified",crit:true},{n:14,topic:"Location of future deforestation — selected model inconsistency and factor map for distance to edge missing",crit:true},{n:28,topic:"Project boundary justification — LR deficit in CAR and forested areas excluded without full accounting",crit:false},{n:21,topic:"Expected community impacts — Section 4.1.1 MR change-in-well-being column insufficient",crit:false}]},
+  {proj:'Angelim', est:'PD+MR1', status:'Awaiting 3R Verra',           who:'verra', dias:21,  prazo:'31/07/26', iniMR:'set/20', fimMR:'dez/23', aud:'RUBY',     vcu:'104K', vcbx:'30K',  cur:6, fOpen:5,    fTotal:27,   findings:[{n:11,topic:"Baseline model LR/non-LR differentiation insufficient — vegetation surplus deforestation not addressed",crit:true},{n:17,topic:"Baseline deforestation rate (RBSLRR) calculation not demonstrated — Puyravaud formula required",crit:true},{n:9,topic:"Implementation status of project activities unclear — outputs and indicators for monitoring period missing",crit:true},{n:21,topic:"Stakeholder engagement occurred after project start — effective prior consultation not demonstrated",crit:false},{n:22,topic:"Grievance Redress Procedure — traditional conflict resolution method and neutral third party not specified",crit:false}]},
+  {proj:'Hiwi',    est:'MR3',    status:'Completeness Check Verra',    who:'verra', dias:9,   prazo:'07/08/26', iniMR:'abr/24', fimMR:'jul/25', aud:'ECOLANCE', vcu:'68K',  vcbx:'30K',  cur:4, fOpen:null, fTotal:null, findings:null},
+  {proj:'Ybyrá',   est:'MR1',    status:'Responding 3R VVB',            who:'cbx',   dias:21,  prazo:'04/08/26', iniMR:'jan/22', fimMR:'jan/25', aud:'RUBY',     vcu:'461K', vcbx:'138K', cur:3, fOpen:null, fTotal:null, findings:null}
 ];
 
 /* ── VOL DATA ── */
 var volRows=[
-  {proj:'Awa',       meto:'VM0007',    q:2, vcu:199, mes:'jul/26', tr:0.25},
+  {proj:'Awa',       meto:'VM0007',    q:2, vcu:139, mes:'ago/26', tr:0.25},
   {proj:'Hiwi MR2',  meto:'VM0015',    q:1, vcu:114, emitted:true, mes:'abr/26', tr:0.45},
-  {proj:'Ybyrá PD',  meto:'VM0015',    q:1, vcu:0,   emitted:true, mes:'jul/26', tr:0.30},
-  {proj:'Ybyrá MR1', meto:'VM0015',    q:3, vcu:482, mes:'dez/26', tr:0.30},
-  {proj:'Oga',       meto:'VM0007/15', q:2, vcu:183, mes:'jul/26', tr:0.30},
-  {proj:'Ahu',       meto:'VM0015',    q:2, vcu:109, mes:'ago/26', tr:0.30},
+  {proj:'Ybyrá PD',  meto:'VM0015',    q:2, vcu:0,   emitted:true, mes:'jul/26', tr:0.30},
+  {proj:'Ybyrá MR1', meto:'VM0015',    q:3, vcu:461, mes:'dez/26', tr:0.30},
+  {proj:'Oga',       meto:'VM0007/15', q:2, vcu:183, mes:'ago/26', tr:0.30},
+  {proj:'Ahu',       meto:'VM0015',    q:2, vcu:109, mes:'set/26', tr:0.30},
   {proj:'Angelim',   meto:'VM0015',    q:2, vcu:104, mes:'ago/26', tr:0.29},
   {proj:'Tatuy',     meto:'VM0015',    q:2, vcu:71,  mes:'set/26', tr:0.24},
-  {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:69,  mes:'nov/26', tr:0.45}
+  {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:68,  mes:'nov/26', tr:0.45}
 ];
 
 var QC=['q1','q2','q3','q4'];
@@ -724,11 +724,11 @@ function updateFooterTotals(){
     var v=cbxMode?Math.round(r.vcu*(r.tr||1)):r.vcu;
     if(r.q>=0) qTot[r.q]+=v;
   }
-  var fmtQ=[0,113560,665276,550578];
+  var fmtQ=[0,113560,605276,529058];
   var fmtQcbx=[0,
     Math.round(114*0.45)*1000,
-    Math.round((199*0.25+0*0.30+183*0.30+109*0.30+104*0.29+71*0.24)*1000),
-    Math.round((482*0.30+69*0.45)*1000)
+    Math.round((139*0.25+0*0.30+183*0.30+109*0.30+104*0.29+71*0.24)*1000),
+    Math.round((461*0.30+68*0.45)*1000)
   ];
   var totals=cbxMode?fmtQcbx:fmtQ;
   var grand=totals.reduce(function(a,b){return a+b;},0);
@@ -783,7 +783,7 @@ function initChart(){
       labels:['Q1\njan–mar','Q2\nabr–jun','Q3\njul–set','Q4\nout–dez'],
       datasets:[{
         label:'VCUs (K)',
-        data:[0,114,665,551],
+        data:[0,114,605,529],
         backgroundColor:['rgba(0,92,53,.85)','rgba(43,168,74,.85)','rgba(123,45,139,.85)','rgba(150,150,150,.55)'],
         borderRadius:6,borderSkipped:false
       }]
@@ -808,24 +808,24 @@ var ovSub='mr';
 var SUMMARY_MR={
   hdr:['Project','MR1','MR2','MR3','MR4','MR5','MR6','MR7','MR8','MR9','MR10'],
   vol:[
-    ['Hiwi',    151373,113560,68778,35273,37265,39693,40830,38636,42614,43951],
+    ['Hiwi',    151373,113560,67725,35273,37265,39693,40830,38636,42614,43951],
     ['Ahu',     108643,8089,22318,21970,21460,17480,16629,16749,15302,11709],
     ['Angelim', 103848,109858,61009,40334,38661,58544,31422,60463,50760,49211],
-    ['Awa',     198854,95908,48175,50556,52691,54252,55472,55779,55461,55684],
-    ['Oga',     183349,72071,76873,76570,75884,71819,71580,68239,2424,4153],
-    ['Tatuy',   70582,53216,68935,74781,70734,74814,69198,68875,66256,64736],
-    ['Ybyrá',   481799,95084,58262,57117,54713,56230,55256,48894,52875,50634],
-    ['Portfolio',1298449,547787,404350,356602,351409,372832,340388,357634,285691,280078]
+    ['Awa',     138854,95908,48175,50556,52691,54252,55472,55779,55461,55684],
+    ['Oga',     183349,72071,76873,75110,75884,71819,71580,68239,2424,4153],
+    ['Tatuy',   70582,55066,68482,75110,70145,77596,66093,70601,63533,67313],
+    ['Ybyrá',   461333,95084,58262,57117,54713,56230,55256,48894,52875,50634],
+    ['Portfolio',1217982,549637,402844,356991,350820,375614,337283,359360,282969,282655]
   ],
   volcbx:[
-    ['Hiwi',    68118,51102,30950,15873,16769,17862,18374,17386,19176,19778],
+    ['Hiwi',    68118,51102,30476,15873,16769,17862,18374,17386,19176,19778],
     ['Ahu',     32593,2427,6695,6591,6438,5244,4989,5025,4590,3513],
     ['Angelim', 30116,31859,17693,11697,11212,16978,9113,17534,14720,14271],
-    ['Awa',     49714,23977,12044,12639,13173,13563,13868,13945,13865,13921],
-    ['Oga',     55005,21621,23062,22971,22765,21546,21474,20472,727,1246],
-    ['Tatuy',   16940,12772,16544,17947,16976,17955,16607,16530,15901,15537],
-    ['Ybyrá',   144540,28525,17479,17135,16414,16869,16577,14668,15863,15190],
-    ['Portfolio',397025,172283,124467,104854,103747,110017,101001,105559,84843,83456]
+    ['Awa',     34714,23977,12044,12639,13173,13563,13868,13945,13865,13921],
+    ['Oga',     55005,21621,23062,22533,22765,21546,21474,20472,727,1246],
+    ['Tatuy',   16940,13216,16436,18026,16835,18623,15862,16944,15248,16155],
+    ['Ybyrá',   138400,28525,17479,17135,16414,16869,16577,14668,15863,15190],
+    ['Portfolio',375886,172727,123885,104494,103606,110685,100257,105974,84189,84074]
   ],
   period:[
     ['Hiwi',    2.6,2.0,1.3,3.0,3.0,3.0,3.0,3.0,3.0,3.0],
@@ -865,7 +865,7 @@ var SUMMARY_MR={
     ['Awa',     'VM0007','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
     ['Oga',     'VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
     ['Tatuy',   'VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
-    ['Ybyrá',   'VM0015','VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
+    ['Ybyrá',   'VM0015','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048','VM0048'],
     ['Portfolio',null,null,null,null,null,null,null,null,null,null]
   ]
 };
@@ -873,24 +873,24 @@ var SUMMARY_MR={
 var SUMMARY_YEAR={
   hdr:['Project',2026,2027,2028,2029,2030,2031,2032,2033,2034,2035],
   vol:[
-    ['Hiwi',    182338,0,0,0,35273,0,37265,0,21970,0],
+    ['Hiwi',    181285,0,0,0,35273,0,37265,0,0,0],
     ['Ahu',     108643,0,0,0,8089,0,22318,0,21970,0],
     ['Angelim', 103848,0,109858,0,61009,0,40334,0,38661,0],
-    ['Awa',     198854,0,95908,48175,50556,0,52691,54252,55472,0],
+    ['Awa',     138854,0,95908,48175,50556,0,52691,54252,55472,0],
     ['Oga',     183349,0,72071,0,76873,0,76570,0,75884,0],
-    ['Tatuy',   70582,0,53216,0,0,68935,0,0,74781,0],
-    ['Ybyrá',   481799,0,95084,58262,57117,54713,56230,55256,48894,52875],
-    ['Portfolio',1329413,0,426138,106438,288917,123647,248144,146773,315662,52875]
+    ['Tatuy',   70582,0,55066,0,0,68482,0,0,75110,0],
+    ['Ybyrá',   461333,0,95084,58262,57117,54713,56230,55256,48894,52875],
+    ['Portfolio',1247894,0,427988,106438,288917,123194,248144,146773,316051,52875]
   ],
   volcbx:[
-    ['Hiwi',    51102,0,0,0,15873,0,16769,0,6591,0],
+    ['Hiwi',    81578,0,0,0,15873,0,16769,0,0,0],
     ['Ahu',     32593,0,0,0,2427,0,6695,0,6591,0],
-    ['Angelim', 33960,0,34712,0,17769,0,11697,0,11212,0],
-    ['Awa',     49714,0,24238,12044,12633,0,13173,13569,13862,0],
-    ['Oga',     55652,0,21621,0,23062,0,22971,0,22765,0],
-    ['Tatuy',   0,21442,12772,0,0,16544,0,0,17947,0],
-    ['Ybyrá',   0,250373,0,17641,17234,16644,16618,16769,15357,15177],
-    ['Portfolio',190428,335358,93344,29685,104004,33188,71154,47107,87735,15177]
+    ['Angelim', 30116,0,31859,0,17693,0,11697,0,11212,0],
+    ['Awa',     34714,0,23977,12044,12639,0,13173,13563,13868,0],
+    ['Oga',     55005,0,21621,0,23062,0,22971,0,22765,0],
+    ['Tatuy',   16940,0,13216,0,0,16436,0,0,18026,0],
+    ['Ybyrá',   138400,0,28525,17479,17135,16414,16869,16577,14668,15863],
+    ['Portfolio',389346,0,119198,29523,88829,32850,88174,30140,87130,15863]
   ],
   mr:[
     ['Hiwi',    'MR2;MR3','-','-','-','MR4','-','MR5','-','MR4','-'],
