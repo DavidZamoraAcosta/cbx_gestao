@@ -413,8 +413,8 @@ table.vt tfoot td.tq4{color:#888;}
             <td>Total</td>
             <td class="tq1" id="ft0">0</td>
             <td class="tq2" id="ft1">113.560</td>
-            <td class="tq3" id="ft2">605.276</td>
-            <td class="tq4" id="ft3">529.058</td>
+            <td class="tq3" id="ft2">466.422</td>
+            <td class="tq4" id="ft3">667.912</td>
           </tr>
         </tfoot>
       </table>
@@ -543,18 +543,18 @@ var certRows=[
   {proj:'Awa',     est:'PD+MR1', status:'Findings Closed 🎉',         who:'verra', dias:25,  prazo:'31/08/26', iniMR:'abr/22', fimMR:'ago/23', aud:'AENOR',    vcu:'139K', vcbx:'35K',  cur:7, fOpen:0,    fTotal:29,   findings:[]},
   {proj:'Tatuy',   est:'PD+MR1', status:'Awaiting Verra review',      who:'verra', dias:19,  prazo:'30/09/26', iniMR:'jul/21', fimMR:'out/23', aud:'RUBY',     vcu:'71K',  vcbx:'17K',  cur:7, fOpen:5,    fTotal:33,   findings:[{n:8,topic:"Baseline model does not differentiate Legal Reserve vs non-LR deforestation risk — authorized deforestation not excluded from baseline",crit:true},{n:11,topic:"Deforestation rate (RBSLRR) not calculated per Puyravaud 2003 formula — first year of HRP excluded from calculations",crit:true},{n:12,topic:"Factor maps for distance to edge, communities and slope missing — model selection demonstration incomplete and inconsistent",crit:true},{n:17,topic:"CCB Benefits Assessment Period starts July 2021 but community/biodiversity activities only initiated in 2023",crit:true},{n:7,topic:"VVB has not confirmed that activities implemented during monitoring period resulted in emission reductions above BAU scenario",crit:false}]},
   {proj:'Hiwi',    est:'MR3',    status:'Awaiting Verra 1R',          who:'verra', dias:22,  prazo:'11/09/26', iniMR:'abr/24', fimMR:'jul/25', aud:'ECOLANCE', vcu:'68K',  vcbx:'30K',  cur:4, fOpen:null, fTotal:null, findings:null},
-  {proj:'Ybyrá',   est:'MR1',    status:'Responding to VVB 3R',       who:'cbx',   dias:12,  prazo:'31/08/26', iniMR:'jan/22', fimMR:'jan/25', aud:'RUBY',     vcu:'461K', vcbx:'138K', cur:3, fOpen:null, fTotal:null, findings:null}
+  {proj:'Ybyrá',   est:'MR1',    status:'Under VVB review',           who:'vvb',   dias:12,  prazo:'31/08/26', iniMR:'jan/22', fimMR:'jan/25', aud:'RUBY',     vcu:'461K', vcbx:'138K', cur:3, fOpen:null, fTotal:null, findings:null}
 ];
 
 /* ── VOL DATA ── */
 var volRows=[
-  {proj:'Awa',       meto:'VM0007',    q:2, vcu:139, mes:'ago/26', tr:0.25},
+  {proj:'Awa',       meto:'VM0007',    q:3, vcu:139, mes:'out/26', tr:0.25},
   {proj:'Hiwi MR2',  meto:'VM0015',    q:1, vcu:114, emitted:true, mes:'abr/26', tr:0.45},
   {proj:'Ybyrá PD',  meto:'VM0015',    q:2, vcu:0,   emitted:true, mes:'jul/26', tr:0.30},
   {proj:'Ybyrá MR1', meto:'VM0015',    q:3, vcu:461, mes:'dez/26', tr:0.30},
-  {proj:'Oga',       meto:'VM0007/15', q:2, vcu:183, emitted:true, mes:'ago/26', tr:0.30},
-  {proj:'Ahu',       meto:'VM0015',    q:2, vcu:109, emitted:true, mes:'ago/26', tr:0.30},
-  {proj:'Angelim',   meto:'VM0015',    q:2, vcu:104, emitted:true, mes:'ago/26', tr:0.29},
+  {proj:'Oga',       meto:'VM0007/15', q:2, vcu:183, emitted:true, mes:'set/26', tr:0.30},
+  {proj:'Ahu',       meto:'VM0015',    q:2, vcu:109, emitted:true, mes:'set/26', tr:0.30},
+  {proj:'Angelim',   meto:'VM0015',    q:2, vcu:104, emitted:true, mes:'set/26', tr:0.29},
   {proj:'Tatuy',     meto:'VM0015',    q:2, vcu:71,  mes:'set/26', tr:0.24},
   {proj:'Hiwi MR3',  meto:'VM0015',    q:3, vcu:68,  mes:'nov/26', tr:0.45}
 ];
@@ -744,8 +744,8 @@ function updateFooterTotals(){
     var v=cbxMode?Math.round(r.vcu*(r.tr||1)):r.vcu;
     if(r.q>=0) qTot[r.q]+=v;
   }
-  var fmtQ=[0,113560,605276,529058];
-  var fmtQcbx=[0,51102,169368,168876];
+  var fmtQ=[0,113560,466422,667912];
+  var fmtQcbx=[0,51102,134654,203590];
   var totals=cbxMode?fmtQcbx:fmtQ;
   var grand=totals.reduce(function(a,b){return a+b;},0);
   for(var q=0;q<4;q++){
@@ -799,7 +799,7 @@ function initChart(){
       labels:['Q1\njan–mar','Q2\nabr–jun','Q3\njul–set','Q4\nout–dez'],
       datasets:[{
         label:'VCUs (K)',
-        data:[0,114,605,529],
+        data:[0,114,466,668],
         backgroundColor:['rgba(0,92,53,.85)','rgba(43,168,74,.85)','rgba(123,45,139,.85)','rgba(150,150,150,.55)'],
         borderRadius:6,borderSkipped:false
       }]
